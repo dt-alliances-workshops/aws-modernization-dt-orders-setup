@@ -28,7 +28,7 @@ The two hosts are setup as follows:
 
 1. OneAgent installed as follows:
 
-    `/bin/sh /tmp/Dynatrace-OneAgent-Linux.sh --set-app-log-content-access=true --set-infra-only=false --set-host-group=dt-orders-monolith`
+    `Dynatrace-OneAgent-Linux.sh --set-app-log-content-access=true --set-infra-only=false --set-host-group=dt-orders-monolith`
 
 1. `LAB_NAME` value set to `MONOLITH` as well as the Dynatrace settings in the `/home/dtu_training/workshop-credentials.json` file.
 
@@ -52,6 +52,6 @@ The two hosts are setup as follows:
 
 1. OneAgent installed as follows:
 
-    `/bin/sh /tmp/Dynatrace-OneAgent-Linux.sh --set-app-log-content-access=true --set-infra-only=false --set-host-group=dt-orders-services`
+    `Dynatrace-OneAgent-Linux.sh --set-app-log-content-access=true --set-infra-only=false --set-host-group=dt-orders-services`
 
 1. `LAB_NAME` value set to `SERVICES` as well as the Dynatrace settings in the `/home/dtu_training/workshop-credentials.json` file (see below)
