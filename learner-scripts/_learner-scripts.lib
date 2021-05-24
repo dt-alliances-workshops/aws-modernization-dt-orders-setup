@@ -7,6 +7,8 @@ if [ -f "$CREDS_FILE" ]
 then
     DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
     DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
+    DT_PAAS_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_PAAS_TOKEN')
+    LAB_NAME=$(cat $CREDS_FILE | jq -r '.LAB_NAME')
 else 
   echo "ABORT: CREDS_FILE: $CREDS_FILE not found"
   exit 1
@@ -15,12 +17,13 @@ fi
 showMe() {
   echo ""
   echo "===================================================="
-  echo "LAB_NAME                 : $LAB_NAME"
-  echo "DYNATRACE_ENVIRONMENT_ID : $DYNATRACE_ENVIRONMENT_ID"
-  echo "DYNATRACE_TOKEN          : $DYNATRACE_TOKEN"
-  echo "Public IP                : $PUBLIC_IP"
-  echo "hostname                 : $(hostname)"
-  echo "whoami                   : $(whoami)"
+  echo "LAB_NAME      : $LAB_NAME"
+  echo "DT_BASEURL    : $DT_BASEURL"
+  echo "DT_API_TOKEN  : $DT_API_TOKEN"
+  echo "DT_PAAS_TOKEN : $DT_PAAS_TOKEN"
+  echo "Public IP     : $PUBLIC_IP"
+  echo "hostname      : $(hostname)"
+  echo "whoami        : $(whoami)"
   echo "==================================================="
   echo ""
 }
