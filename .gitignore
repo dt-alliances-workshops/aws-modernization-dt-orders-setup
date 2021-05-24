@@ -1,0 +1,7 @@
+# misc files
+.DS_Store
+.logs
+todo.txt
+
+# downloaded files
+workshop-config/monaco-binary
