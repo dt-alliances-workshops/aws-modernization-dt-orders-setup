@@ -1,0 +1,9 @@
+#cloud-config
+runcmd:
+  - sudo apt-get update
+  - sudo apt-get install -y git
+  - sudo mkdir -p /home/dtu_training
+  - sudo git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/dtu_training/aws-modernization-dt-orders-setup
+  - sudo chown dtu_training:dtu_training -R /home/dtu_training
+  - sudo usermod -a -G sudo dtu_training
+  - sudo /home/dtu_training/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-monolith > /tmp/cloud-init-monolith.log

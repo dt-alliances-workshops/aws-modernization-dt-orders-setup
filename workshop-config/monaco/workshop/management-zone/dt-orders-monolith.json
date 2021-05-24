@@ -1,0 +1,39 @@
+{
+ "description": null,
+ "dimensionalRules": [],
+ "entitySelectorBasedRules": [],
+ "metadata": {
+  "clusterVersion": "1.216.36.20210415-140341",
+  "configurationVersions": [
+   0
+  ]
+ },
+ "name": "{{.name}}",
+ "rules": [
+  {
+   "conditions": [
+    {
+     "comparisonInfo": {
+      "negate": false,
+      "operator": "EQUALS",
+      "type": "TAG",
+      "value": {
+       "context": "CONTEXTLESS",
+       "key": "stage",
+       "value": "production"
+      }
+     },
+     "key": {
+      "attribute": "SERVICE_TAGS"
+     }
+    }
+   ],
+   "enabled": true,
+   "propagationTypes": [
+    "SERVICE_TO_HOST_LIKE",
+    "SERVICE_TO_PROCESS_GROUP_LIKE"
+   ],
+   "type": "SERVICE"
+  }
+ ]
+}

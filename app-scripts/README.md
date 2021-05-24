@@ -1,0 +1,23 @@
+# Overview
+
+These scripts stop and start the dt-orders application in both monolith and services mode.
+
+A learner generally would not run any scripts within this repo.  The scripts and files used by the [Dynatrace Training University (DTU)](https://university.dynatrace.com)) provisioning scripts that pre-provision the workshop for each learner.
+
+# Prerequisites
+
+1. This repo was git cloned to `/home/dtu_training/aws-modernization-dt-orders-setup`
+
+1. The VM running Docker and has Docker-Compose installed
+
+# Usage
+
+1. Monolith version
+    * The `start-monolith.sh` will call the `stop-monolith.sh` first, then it will start the application.
+    * A startup log is written to `/tmp/start-monolith.log`
+    * App runs on port 80
+
+1. Services version
+    * The `start-services.sh` will call the `stop-services.sh` first, then it will start the application.
+    * A startup log is written to `/tmp/start-services.log`
+    * App runs on port 80

@@ -1,0 +1,57 @@
+2021-05-11 20:12:48 DEBUG request log not activated
+2021-05-11 20:12:48 DEBUG response log not activated
+2021-05-11 20:12:48 INFO  Dynatrace Monitoring as Code v1.5.0
+2021-05-11 20:12:48 DEBUG Reading projects...
+2021-05-11 20:12:48 DEBUG   project - monaco/projects/workshop
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/auto-tag/config.yaml
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/azure-credentials/config.yaml
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/management-zone/config.yaml
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/slo/config.yaml
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/services-slo has dep on monaco/projects/workshop/management-zone/dt-orders-services
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/monolith-slo has dep on monaco/projects/workshop/management-zone/dt-orders-monolith
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/management-zone/dt-orders-services
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/management-zone/dt-orders-monolith
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/services-slo
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/monolith-slo
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/azure-credentials/credentials
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/auto-tag/auto-tag-stage
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/auto-tag/auto-tag-service
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/auto-tag/auto-tag-project
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/auto-tag/config.yaml
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/azure-credentials/config.yaml
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/management-zone/config.yaml
+2021-05-11 20:12:48 DEBUG Processing file: monaco/projects/workshop/slo/config.yaml
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/monolith-slo has dep on monaco/projects/workshop/management-zone/dt-orders-monolith
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/services-slo has dep on monaco/projects/workshop/management-zone/dt-orders-services
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/management-zone/dt-orders-services
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/management-zone/dt-orders-monolith
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/services-slo
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/slo/monolith-slo
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/azure-credentials/credentials
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/auto-tag/auto-tag-stage
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/auto-tag/auto-tag-service
+2021-05-11 20:12:48 DEBUG 		monaco/projects/workshop/auto-tag/auto-tag-project
+2021-05-11 20:12:48 DEBUG Sorting projects...
+2021-05-11 20:12:48 INFO  Executing projects in this order: 
+2021-05-11 20:12:48 INFO  	1: monaco/projects/workshop (8 configs)
+2021-05-11 20:12:48 INFO  Processing environment workshop...
+2021-05-11 20:12:48 INFO  	Processing project monaco/projects/workshop...
+2021-05-11 20:12:48 DEBUG 		Deploying configs in this order: 
+2021-05-11 20:12:48 DEBUG 			1: monaco/projects/workshop/management-zone/dt-orders-services.json
+2021-05-11 20:12:48 DEBUG 			2: monaco/projects/workshop/management-zone/dt-orders-monolith.json
+2021-05-11 20:12:48 DEBUG 			3: monaco/projects/workshop/slo/services-slo.json
+2021-05-11 20:12:48 DEBUG 			4: monaco/projects/workshop/slo/monolith-slo.json
+2021-05-11 20:12:48 DEBUG 			5: monaco/projects/workshop/azure-credentials/azure-credentials.json
+2021-05-11 20:12:48 DEBUG 			6: monaco/projects/workshop/auto-tag/auto-tag-stage.json
+2021-05-11 20:12:48 DEBUG 			7: monaco/projects/workshop/auto-tag/auto-tag-service.json
+2021-05-11 20:12:48 DEBUG 			8: monaco/projects/workshop/auto-tag/auto-tag-project.json
+2021-05-11 20:12:48 DEBUG 		Applying config `dt-orders-services` using monaco/projects/workshop/management-zone/dt-orders-services.json
+2021-05-11 20:12:48 DEBUG 			Updated existing object for dt-orders-services (2783447253893226521)
+2021-05-11 20:12:48 DEBUG 		Applying config `dt-orders-monolith` using monaco/projects/workshop/management-zone/dt-orders-monolith.json
+2021-05-11 20:12:48 DEBUG 			Updated existing object for dt-orders-monolith (-6686670530716189460)
+2021-05-11 20:12:48 DEBUG 		Applying config `DT-Orders Services Error Rate` using monaco/projects/workshop/slo/services-slo.json
+2021-05-11 20:12:49 DEBUG 			Created new object for DT-Orders Services Error Rate ()
+2021-05-11 20:12:49 DEBUG 		Applying config `DT-Orders Monolith Error Rate` using monaco/projects/workshop/slo/monolith-slo.json
+2021-05-11 20:12:49 DEBUG 			Created new object for DT-Orders Monolith Error Rate ()
+2021-05-11 20:12:49 DEBUG 		Applying config `azure-modernize-workshop` using monaco/projects/workshop/azure-credentials/azure-credentials.json
+2021-05-11 20:12:49 INFO  Deployment summary:

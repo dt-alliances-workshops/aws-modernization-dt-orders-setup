@@ -1,0 +1,319 @@
+2021-04-16 12:16:30 DEBUG request log not activated
+2021-04-16 12:16:30 DEBUG response log not activated
+2021-04-16 12:16:30 INFO  Dynatrace Monitoring as Code v1.5.0
+2021-04-16 12:16:30 INFO  Creating base project name workshop
+2021-04-16 12:16:30 INFO   --- GETTING CONFIGS for synthetic-location
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-A437CC152B23F30C Beijing %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 1
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-A437CC152B23F30C)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-E01B833216FC3598 Hong Kong %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 2
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-E01B833216FC3598)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-0A41430434C388A9 Gdańsk %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 3
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-0A41430434C388A9)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-9999453BE4BDB3CD N. Virginia %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 4
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-9999453BE4BDB3CD)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-0DF9A0E1095A5A62 Portland %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 5
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-0DF9A0E1095A5A62)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-4DBE735F24F26BD5 Virginia %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 6
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-4DBE735F24F26BD5)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-7C43F8C9004CB227 US East (Virginia) %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 7
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-7C43F8C9004CB227)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-3F7C50D0C9065578 Mumbai %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 8
+2021-04-16 12:16:30 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-3F7C50D0C9065578)
+2021-04-16 12:16:30 DEBUG getting detail {GEOLOCATION-388A5AD15726CB6F Dublin %!s(*string=<nil>)}
+2021-04-16 12:16:30 DEBUG REQUEST counter 9
+2021-04-16 12:16:31 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=GEOLOCATION-388A5AD15726CB6F)
+2021-04-16 12:16:31 INFO   --- GETTING CONFIGS for maintenance-window
+2021-04-16 12:16:31 INFO  No elements for API maintenance-window
+2021-04-16 12:16:31 INFO   --- GETTING CONFIGS for kubernetes-credentials
+2021-04-16 12:16:31 INFO  No elements for API kubernetes-credentials
+2021-04-16 12:16:31 INFO   --- GETTING CONFIGS for alerting-profile
+2021-04-16 12:16:31 DEBUG getting detail {fd8b84c4-b35e-4cb3-81e3-c0935885b004 test %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 10
+2021-04-16 12:16:31 DEBUG getting detail {56a6d633-ec60-4ad6-b4dd-ff8643ee8910 Immediate %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 11
+2021-04-16 12:16:31 DEBUG getting detail {c21f969b-5f03-333d-83e0-4f8f136e7682 Default %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 12
+2021-04-16 12:16:31 INFO   --- GETTING CONFIGS for dashboard
+2021-04-16 12:16:31 DEBUG getting detail {fd9c4d13-2e66-43f8-a6b6-b19d08760617 Amazon EC2 API %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 13
+2021-04-16 12:16:31 DEBUG getting detail {c64679bb-39a3-4b4c-940c-843e8470a32c Cloud Modernization Success %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 14
+2021-04-16 12:16:31 DEBUG getting detail {f7ff9475-7515-46c7-8051-9ab58541f6d8 Home %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 15
+2021-04-16 12:16:31 DEBUG getting detail {781209e3-70d1-41e5-83ba-9462b50689f2 Biz Revenue %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 16
+2021-04-16 12:16:31 DEBUG getting detail {e5edc1ce-2077-4fbc-ad5b-5b8fd93a59cf Home %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 17
+2021-04-16 12:16:31 DEBUG getting detail {a848a503-b0a7-4d49-8523-7d49ea463e91 Azure MySQL %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 18
+2021-04-16 12:16:31 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=a848a503-b0a7-4d49-8523-7d49ea463e91)
+2021-04-16 12:16:31 DEBUG getting detail {2c0d7e7c-b4a8-4772-955c-9bda9aef4ba7 Home %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 19
+2021-04-16 12:16:31 DEBUG getting detail {badd2631-7310-4be0-be90-01d6d5537c70 Synthetic Monitoring-cloned %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 20
+2021-04-16 12:16:31 DEBUG getting detail {c704bd72-92e9-452a-b40e-73e6f4df9f08 Real User Monitoring %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 21
+2021-04-16 12:16:31 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=c704bd72-92e9-452a-b40e-73e6f4df9f08)
+2021-04-16 12:16:31 DEBUG getting detail {e384d4b9-5fd8-4772-aa1c-6b027cea2b27 Azure Cognitive Services %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 22
+2021-04-16 12:16:31 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=e384d4b9-5fd8-4772-aa1c-6b027cea2b27)
+2021-04-16 12:16:31 DEBUG getting detail {bf71f71f-d8ee-4145-b054-3526bb194141 Azure App Service Plan %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 23
+2021-04-16 12:16:31 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=bf71f71f-d8ee-4145-b054-3526bb194141)
+2021-04-16 12:16:31 DEBUG getting detail {bf257cb7-c7f1-47db-834d-f933c769b4d5 Home %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 24
+2021-04-16 12:16:31 DEBUG getting detail {6084645c-7d30-41a8-8f31-8962de2bce2d Azure MySQL-cloned %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 25
+2021-04-16 12:16:31 DEBUG getting detail {b834cfc8-ab57-42d4-a871-fca120b1eb28 modernize-workshop %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 26
+2021-04-16 12:16:31 DEBUG getting detail {b6fc0160-9332-454f-a7bc-7217b2ae540c Synthetic Monitoring %!s(*string=<nil>)}
+2021-04-16 12:16:31 DEBUG REQUEST counter 27
+2021-04-16 12:16:32 DEBUG Non-user-created default Object has been filtered out%!(EXTRA string=b6fc0160-9332-454f-a7bc-7217b2ae540c)
+2021-04-16 12:16:32 DEBUG getting detail {0f79a688-4ef3-4bb0-a950-6c280cbe20c7 Home %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 28
+2021-04-16 12:16:32 DEBUG getting detail {bbbbbbbb-0002-0000-0000-ffffffffffff Config %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 29
+2021-04-16 12:16:32 DEBUG getting detail {35e6d282-9020-4ab9-9159-34c959db1af6 sockshop@keptn: Digital Delivery & Operations Dashboard %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 30
+2021-04-16 12:16:32 DEBUG getting detail {bbbbbbbb-0001-0000-0000-ffffffffffff Config %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 31
+2021-04-16 12:16:32 DEBUG getting detail {63026681-7e4f-4a74-87fc-c6564f8b41a6 Home %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 32
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for request-naming-service
+2021-04-16 12:16:32 INFO  No elements for API request-naming-service
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for synthetic-monitor
+2021-04-16 12:16:32 INFO  No elements for API synthetic-monitor
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for custom-service-go
+2021-04-16 12:16:32 INFO  No elements for API custom-service-go
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for app-detection-rule
+2021-04-16 12:16:32 DEBUG getting detail {cb21e38f-c332-4f64-85b2-cb14c8074e67 app-rule1-easy-travel-angular %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 33
+2021-04-16 12:16:32 DEBUG getting detail {15b6ad71-eff7-40c9-bbf2-442d457cf09b app-rule2-easy-travel-angular %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 34
+2021-04-16 12:16:32 DEBUG getting detail {ac574dad-3465-40f9-b380-85c78062d5ff app-rule3-easy-travel-angular %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 35
+2021-04-16 12:16:32 DEBUG getting detail {4b652880-02c0-42a6-8bf7-e521dbf97ea8 app-rule4-easy-travel-angular %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 36
+2021-04-16 12:16:32 DEBUG getting detail {1a38d1c5-d1f4-47cc-b4f3-ff6e95b2b4c2 app-rule1-easy-travel-orange %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 37
+2021-04-16 12:16:32 DEBUG getting detail {6f8b17b5-0466-494f-a059-3d3e4fca594a app-rule2-easy-travel-orange %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 38
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for credential-vault
+2021-04-16 12:16:32 INFO  No elements for API credential-vault
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for application-mobile
+2021-04-16 12:16:32 INFO  No elements for API application-mobile
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for custom-service-dotnet
+2021-04-16 12:16:32 INFO  No elements for API custom-service-dotnet
+2021-04-16 12:16:32 INFO   --- GETTING CONFIGS for anomaly-detection-metrics
+2021-04-16 12:16:32 DEBUG getting detail {dynatrace.remote.python.elasticsearch:node.os.cpu_percent:node.os.cpu_percent.high_usage High OS CPU usage %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 39
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:mem_usage:mem_usage_alert_high_generic High RabbitMQ memory usage %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 40
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.haproxy:be_rtime:be_rtime_alert_high_generic High HAProxy response time %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 41
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:connections_blocked:connections_blocked High RabbitMQ number of blocked connections %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 42
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.haproxy:be_qcur:be_queued_request_alert_high_generic High HAProxy requests queue %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 43
+2021-04-16 12:16:32 DEBUG getting detail {dynatrace.jmx.kafka:kafka.server.ReplicaManager.UnderReplicatedPartitions.Value:server.ReplicaManager.UnderReplicatedPartitions Under replicated %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 44
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:proc_usage:proc_usuage_alert_high_generic High RabbitMQ processes usage %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 45
+2021-04-16 12:16:32 DEBUG getting detail {dynatrace.jmx.kafka:pg.kafka.controller.KafkaController.OfflinePartitionsCount.Value:controller.KafkaController.OfflinePartitionsCount Offline partitions %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 46
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.redis:slave_state:sync_in_progress Redis Replica synchronization in progress %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 47
+2021-04-16 12:16:32 DEBUG getting detail {dynatrace.jmx.wso2-api-manager:metric_carbon_system_response_time_avg:alert_carbon_high_system_response_time WSO2 API Manager - Carbon has exteremly high system response time %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 48
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.perfmon.dotnetV4:%TimeInGC:time_in_gc_alert_high_generic High GC time %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 49
+2021-04-16 12:16:32 DEBUG getting detail {dynatrace.jmx.wso2-api-manager:metric_wso2am_http_latency_backend_avg:alert_wso2am_http_high_backend_latency WSO2 API Manager - High http backend latency %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 50
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:sockets_usage:sockets_usage_alert_high_generic High RabbitMQ sockets usage %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 51
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:ad_queues_no_consumers:ad_queues_no_consumers_alert High RabbitMQ number of auto delete queues without consumers %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 52
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:fd_usage:fd_usage_alert_high_generic High RabbitMQ file descriptors usage %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 53
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:messages_unacknowledged:messages_unacknowledged_alert High RabbitMQ number of unacknowledged messages %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 54
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.redis:slave_state:unsynchronized Redis Replica unsynchronized %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 55
+2021-04-16 12:16:32 DEBUG getting detail {ruxit.python.rabbitmq:node_status:node_failed RabbitMQ Node failed %!s(*string=<nil>)}
+2021-04-16 12:16:32 DEBUG REQUEST counter 56
+2021-04-16 12:16:33 DEBUG getting detail {ruxit.python.haproxy:be_susage:be_usage_alert_high_generic High HAProxy backend session usage %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 57
+2021-04-16 12:16:33 DEBUG getting detail {ruxit.python.haproxy:idle:idle_alert_low_generic Low HAProxy idle time %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 58
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.python.coredns_v1:panic_count_total:panic_count_total_alert High panic count %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 59
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.wso2-api-manager:metric_wso2am_http_latency_avg:alert_wso2am_http_high_latency WSO2 API Manager - High http latency %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 60
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.wso2-api-manager:metric_wso2am_https_latency_backend_avg:alert_wso2am_https_high_backend_latency WSO2 API Manager - High https backend latency %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 61
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.python.coredns:panic_count_total:panic_count_total_alert High panic count %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 62
+2021-04-16 12:16:33 DEBUG getting detail {6d476c3c-835f-4c4b-9227-223ee3e61f58 Biz Revenue Below 10 %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 63
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.wso2-api-manager:metric_wso2am_https_latency_avg:alert_wso2am_https_high_latency WSO2 API Manager - High https latency %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 64
+2021-04-16 12:16:33 DEBUG getting detail {72849c3b-7aea-4d13-9eec-421ce1b0a6fa Biz Revenue Below 50 %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 65
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.wso2-api-manager:metric_carbon_number_faulty_services:alert_carbon_faulty_services WSO2 API Manager - Carbon has faulty services %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 66
+2021-04-16 12:16:33 DEBUG getting detail {ruxit.python.haproxy:fe_susage:fe_usage_alert_high_generic High HAProxy frontend session usage %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 67
+2021-04-16 12:16:33 DEBUG getting detail {ruxit.python.rabbitmq:disk_free_left_to_limit:disk_free_alert_low_generic Low RabbitMQ free disk space %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 68
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.kafka:pg.kafka.controller.KafkaController.ActiveControllerCount.Value:pg.kafka.controller.KafkaController.ActiveControllerCount.ABOVE Cluster controller mismatch %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 69
+2021-04-16 12:16:33 INFO   --- GETTING CONFIGS for custom-service-java
+2021-04-16 12:16:33 DEBUG getting detail {ad10a3fd-9e48-407b-bf04-e80680b01f6f CheckDestination %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 70
+2021-04-16 12:16:33 INFO   --- GETTING CONFIGS for azure-credentials
+2021-04-16 12:16:33 DEBUG getting detail {AZURE_CREDENTIALS-10EE3DFA0564409A azure-modernize-workshop %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 71
+2021-04-16 12:16:33 INFO   --- GETTING CONFIGS for conditional-naming-host
+2021-04-16 12:16:33 DEBUG getting detail {c11ab948-e8c8-4370-9cea-590c531878ce shortname %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 72
+2021-04-16 12:16:33 INFO   --- GETTING CONFIGS for extension
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.Hadoop.HDFS Apache Hadoop HDFS %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 73
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.Hadoop.yarn Apache Hadoop YARN %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 74
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.activemq ActiveMQ JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 75
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.appserver.jetty Jetty JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 76
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.cassandra Cassandra JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 77
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.hornetq HornetQ JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 78
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.jboss.connectionpool JBoss Connection Pools %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 79
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.kafka Kafka JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 80
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.liberty.appserver WebSphere Liberty Appserver %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 81
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.liberty.connectionpool WebSphere Liberty Connection Pools %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 82
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.netflix.servo Netflix OSS JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 83
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.solr Solr JMX %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 84
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.spark Apache Spark %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 85
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.tomcat.connectionpool Tomcat Connection Pools %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 86
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.weblogic.connectionpool WebLogic Connection Pools %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 87
+2021-04-16 12:16:33 DEBUG getting detail {dynatrace.jmx.wso2-api-manager WSO2 API Manager %!s(*string=<nil>)}
+2021-04-16 12:16:33 DEBUG REQUEST counter 88
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.coredns CoreDNS %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 89
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.couchbase Couchbase %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 90
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.couchdb CouchDB %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 91
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.docker Docker technology monitoring %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 92
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.elasticsearch Elasticsearch %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 93
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.haproxy HAProxy %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 94
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.memcached Memcached %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 95
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.mongodb MongoDB %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 96
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.mssql MS SQL %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 97
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.mysql MySQL %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 98
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.ntp NTP %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 99
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.phpfpm PHP-FPM %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 100
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.postgresql PostgreSQL %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 101
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.rabbitmq RabbitMQ %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 102
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.python.redis Redis %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 103
+2021-04-16 12:16:34 DEBUG getting detail {dynatrace.remote.python.elasticsearch Elasticsearch Cloud %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 104
+2021-04-16 12:16:34 INFO   --- GETTING CONFIGS for application
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-AA6FBDB3572DE8FF EasyTravelAngular %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 105
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-F066643BC69D9132 EasyTravelOrange %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 106
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-0156D0C89EE4D3BD EasyTravelAngular (10) %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 107
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-8C506BCF8C96909A EasyTravelOrange (1) %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 108
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-203B8CC2009EE62F Test %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 109
+2021-04-16 12:16:34 INFO   --- GETTING CONFIGS for calculated-metrics-log
+2021-04-16 12:16:34 INFO  No elements for API calculated-metrics-log
+2021-04-16 12:16:34 INFO   --- GETTING CONFIGS for application-web
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-AA6FBDB3572DE8FF EasyTravelAngular %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 110
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-8C506BCF8C96909A EasyTravelOrange (1) %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 111
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-0156D0C89EE4D3BD EasyTravelAngular (10) %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 112
+2021-04-16 12:16:34 DEBUG getting detail {APPLICATION-203B8CC2009EE62F Test %!s(*string=<nil>)}
+2021-04-16 12:16:34 DEBUG REQUEST counter 113
+2021-04-16 12:16:35 DEBUG getting detail {APPLICATION-F066643BC69D9132 EasyTravelOrange %!s(*string=<nil>)}
+2021-04-16 12:16:35 DEBUG REQUEST counter 114
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for conditional-naming-service
+2021-04-16 12:16:35 INFO  No elements for API conditional-naming-service
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for custom-service-php
+2021-04-16 12:16:35 INFO  No elements for API custom-service-php
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for aws-credentials
+2021-04-16 12:16:35 INFO  No elements for API aws-credentials
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for custom-service-nodejs
+2021-04-16 12:16:35 INFO  No elements for API custom-service-nodejs
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for management-zone
+2021-04-16 12:16:35 DEBUG getting detail {2783447253893226521 dt-orders-services %!s(*string=<nil>)}
+2021-04-16 12:16:35 DEBUG REQUEST counter 115
+2021-04-16 12:16:35 DEBUG getting detail {-5726885575637529434 ez-travel-monolith %!s(*string=<nil>)}
+2021-04-16 12:16:35 DEBUG REQUEST counter 116
+2021-04-16 12:16:35 DEBUG getting detail {-4322996774970841154 ez-travel-docker %!s(*string=<nil>)}
+2021-04-16 12:16:35 DEBUG REQUEST counter 117
+2021-04-16 12:16:35 DEBUG getting detail {-951377028902409222 dt-orders-monolith %!s(*string=<nil>)}
+2021-04-16 12:16:35 DEBUG REQUEST counter 118
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for calculated-metrics-service
+2021-04-16 12:16:35 INFO  No elements for API calculated-metrics-service
+2021-04-16 12:16:35 INFO   --- GETTING CONFIGS for slo
+2021-04-16 12:16:35 DEBUG getting detail {0e7bf661-3bf6-3190-8af7-5e13553da682 DT-Orders Monolith Error Rate %!s(*string=<nil>)}
+2021-04-16 12:16:35 DEBUG REQUEST counter 119
+2021-04-16 12:16:36 DEBUG getting detail {eb0cb147-595b-3e9f-860d-54ebab42f3d8 DT-Orders Services Error Rate %!s(*string=<nil>)}
+2021-04-16 12:16:36 DEBUG REQUEST counter 120
+2021-04-16 12:16:37 INFO   --- GETTING CONFIGS for auto-tag
+2021-04-16 12:16:37 DEBUG getting detail {cbcec467-29c5-4f05-a59c-3a86e51f9820 project %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 121
+2021-04-16 12:16:37 DEBUG getting detail {b77859a0-5c3c-4346-9e6b-f8aae2d06a75 service %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 122
+2021-04-16 12:16:37 DEBUG getting detail {d737112b-bc9a-4865-bd79-9c2cf8ce60d8 stage %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 123
+2021-04-16 12:16:37 INFO   --- GETTING CONFIGS for notification
+2021-04-16 12:16:37 DEBUG getting detail {6c4eb245-44a7-4904-8355-d25d57271ba8 Jira Tutorial %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 124
+2021-04-16 12:16:37 DEBUG getting detail {73708e40-7ae2-4972-a8b6-5472c45f89ec OpsGenie %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 125
+2021-04-16 12:16:37 DEBUG getting detail {99036188-edf1-3777-a16c-b956a11a92c5 webhook.io %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 126
+2021-04-16 12:16:37 DEBUG getting detail {ff0799d5-3095-40c5-be4c-6cebfadc344b Keptn Problem Notification %!s(*string=<nil>)}
+2021-04-16 12:16:37 DEBUG REQUEST counter 127
+2021-04-16 12:16:37 INFO   --- GETTING CONFIGS for request-attributes
+2021-04-16 12:16:37 INFO  No elements for API request-attributes
+2021-04-16 12:16:37 INFO   --- GETTING CONFIGS for conditional-naming-processgroup
+2021-04-16 12:16:38 INFO  No elements for API conditional-naming-processgroup

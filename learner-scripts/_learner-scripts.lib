@@ -1,0 +1,142 @@
+#!/bin/bash
+
+CREDS_FILE=/home/dtu_training/workshop-credentials.json
+PUBLIC_IP=$(curl ifconfig.me/ip)
+
+if [ -f "$CREDS_FILE" ]
+then
+    DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
+    DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
+else 
+  echo "ABORT: CREDS_FILE: $CREDS_FILE not found"
+  exit 1
+fi
+
+showMe() {
+  echo ""
+  echo "===================================================="
+  echo "LAB_NAME                 : $LAB_NAME"
+  echo "DYNATRACE_ENVIRONMENT_ID : $DYNATRACE_ENVIRONMENT_ID"
+  echo "DYNATRACE_TOKEN          : $DYNATRACE_TOKEN"
+  echo "Public IP                : $PUBLIC_IP"
+  echo "hostname                 : $(hostname)"
+  echo "whoami                   : $(whoami)"
+  echo "==================================================="
+  echo ""
+}
+
+setServicesVersion() {
+  SERVICE=$1
+  NEW_VERSION=$2
+
+  TAG_PROJECT=dt-orders
+
+  if [[ "$SERVICE" = "order" && "$LAB_NAME" = "SERVICES" ]]; then
+    TAG_SERVICE=order-service
+    TAG_STAGE=dev
+  elif [[ "$SERVICE" = "customer" && "$LAB_NAME" = "SERVICES" ]]; then
+    TAG_SERVICE=customer-service
+    TAG_STAGE=dev
+  elif [[] "$SERVICE" = "backend" && "$LAB_NAME" = "MONOLITH" ]]; then
+    TAG_SERVICE=backend
+    TAG_STAGE=production
+  else
+    echo "ERROR setServicesVersion(): missing or invalid SERVICE $SERVICE"
+    echo "Required arguments are: SERVICE NEW_VERSION. Must be value of:"
+    echo "  'backend' for MONOLITH host"
+    echo "  'order' or 'customer' for SERVICES host"
+    exit 1
+  fi
+
+  if [[ "$NEW_VERSION" = "1" || "$NEW_VERSION" = "2" || "$NEW_VERSION" = "3" ]]; then
+    echo "================================================================="
+    echo "Setting Service Version"
+    echo "SERVICE     = $SERVICE"
+    echo "NEW_VERSION = $NEW_VERSION"
+    echo "PUBLIC URL  = http://$PUBLIC_IP"
+    echo "================================================================="
+    RETURN_MESSAGE=$(curl -s -X GET "http://$PUBLIC_IP/$SERVICE/setversion/$NEW_VERSION")
+    if [[ "$RETURN_MESSAGE" == *"Action was successful"* || "$RETURN_MESSAGE" == *"Set version to"* ]]; then
+      echo "Set $SERVICE to $NEW_VERSION was successful"
+    else
+      echo "ERROR setServicesVersion(): Issue setting version"
+      exit 1
+    fi
+    pushDeploymentEvent $TAG_PROJECT $TAG_STAGE $TAG_SERVICE $NEW_VERSION "http://$PUBLIC_IP"
+   else
+      echo "ERROR setServicesVersion(): missing or invalid NEW_VERSION $NEW_VERSION : must be value of 1,2 or 3"
+      echo "Required arguments are: SERVICE NEW_VERSION"
+      exit 1
+  fi
+}
+
+pushDeploymentEvent() {
+  # reference: https://www.dynatrace.com/support/help/dynatrace-api/environment-api/events/post-event/
+  # example arguments: dt-orders dev order-service
+  DEPLOYMENT_PROJECT=$1
+  TAG_STAGE=$2
+  TAG_SERVICE=$3
+  DEPLOYMENT_VERSION=$4
+  CI_BACK_LINK=$5
+
+  TAG_PROJECT=$DEPLOYMENT_PROJECT
+  DT_API_URL="$DT_BASEURL/api/v1/events"
+  DEPLOYMENT_NAME="Set $TAG_SERVICE to version $DEPLOYMENT_VERSION"
+
+  echo "================================================================="
+  echo "Sending Dynatrace Deployment event"
+  echo "DT_API_URL                 = $DT_API_URL"
+  echo "DEPLOYMENT_NAME            = $DEPLOYMENT_NAME"
+  echo "DEPLOYMENT_VERSION         = $DEPLOYMENT_VERSION"
+  echo "DEPLOYMENT_PROJECT         = $DEPLOYMENT_PROJECT"
+  echo "CI_BACK_LINK               = $CI_BACK_LINK"
+  echo "================================================================="
+  POST_DATA=$(cat <<EOF
+  {
+      "eventType" : "CUSTOM_DEPLOYMENT",
+      "source" : "Custom Unix Shell Script" ,
+      "deploymentName" : "$DEPLOYMENT_NAME",
+      "deploymentVersion" : "$DEPLOYMENT_VERSION"  ,
+      "deploymentProject" : "$DEPLOYMENT_PROJECT" ,
+      "ciBackLink" : "$CI_BACK_LINK",
+      "customProperties": {
+          "Example Custom Property 1" : "Example Custom Value 1",
+          "Example Custom Property 2" : "Example Custom Value 2",
+          "Example Custom Property 3" : "Example Custom Value 3"
+      },
+      "attachRules" : {
+            "tagRule" : [
+                {
+                  "meTypes":["PROCESS_GROUP_INSTANCE"],
+                  "tags": [
+                      {
+                            "context": "CONTEXTLESS",
+                            "key": "service",
+                              "value": "$TAG_SERVICE"
+                      },
+                          {
+                            "context": "CONTEXTLESS",
+                            "key": "project",
+                              "value": "$TAG_PROJECT"
+                      },
+                          {
+                            "context": "CONTEXTLESS",
+                            "key": "stage",
+                              "value": "$TAG_STAGE"
+                      }
+            ]}
+          ]}
+        }
+  }
+EOF
+)
+  echo "Push Event POST_DATA"
+  echo $POST_DATA
+  echo ""
+  echo "Response Data"
+  curl --url "$DT_API_URL" -H "Content-type: application/json" -H "Authorization: Api-Token "$DT_API_TOKEN -X POST -d "$POST_DATA"
+
+  echo ""
+  echo ""
+
+}

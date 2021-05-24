@@ -1,0 +1,12 @@
+2021-04-15 11:15:36 DEBUG request log not activated
+2021-04-15 11:15:36 DEBUG response log not activated
+2021-04-15 11:15:36 INFO  Dynatrace Monitoring as Code v1.5.0
+2021-04-15 11:15:36 INFO  Creating base project name workshop
+2021-04-15 11:15:36 INFO   --- GETTING CONFIGS for notification
+2021-04-15 11:15:37 DEBUG getting detail {6c4eb245-44a7-4904-8355-d25d57271ba8 Jira Tutorial %!s(*string=<nil>)}
+2021-04-15 11:15:37 DEBUG REQUEST counter 1
+2021-04-15 11:15:37 DEBUG getting detail {73708e40-7ae2-4972-a8b6-5472c45f89ec OpsGenie %!s(*string=<nil>)}
+2021-04-15 11:15:37 DEBUG REQUEST counter 2
+2021-04-15 11:15:37 DEBUG getting detail {ff0799d5-3095-40c5-be4c-6cebfadc344b Keptn Problem Notification %!s(*string=<nil>)}
+2021-04-15 11:15:37 DEBUG REQUEST counter 3
+2021-04-15 11:15:37 INFO  END downloading info workshop

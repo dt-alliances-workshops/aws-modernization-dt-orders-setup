@@ -1,0 +1,10 @@
+config:
+- project: project.json
+- service: service.json
+- stage: stage.json
+project:
+- name: project
+service:
+- name: service
+stage:
+- name: stage

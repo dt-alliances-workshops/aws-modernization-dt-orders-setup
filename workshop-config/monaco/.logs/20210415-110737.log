@@ -1,0 +1,11 @@
+2021-04-15 11:07:37 DEBUG request log not activated
+2021-04-15 11:07:37 DEBUG response log not activated
+2021-04-15 11:07:37 INFO  Dynatrace Monitoring as Code v1.5.0
+2021-04-15 11:07:37 INFO  Creating base project name workshop
+2021-04-15 11:07:37 INFO   --- GETTING CONFIGS for alerting-profile
+2021-04-15 11:07:37 DEBUG getting detail {fd8b84c4-b35e-4cb3-81e3-c0935885b004 test %!s(*string=<nil>)}
+2021-04-15 11:07:37 DEBUG REQUEST counter 1
+2021-04-15 11:07:37 DEBUG getting detail {56a6d633-ec60-4ad6-b4dd-ff8643ee8910 Immediate %!s(*string=<nil>)}
+2021-04-15 11:07:37 DEBUG REQUEST counter 2
+2021-04-15 11:07:38 DEBUG getting detail {c21f969b-5f03-333d-83e0-4f8f136e7682 Default %!s(*string=<nil>)}
+2021-04-15 11:07:38 DEBUG REQUEST counter 3
