@@ -18,7 +18,7 @@ download_monaco() {
     rm -f monaco-binary
     wget -q -O monaco-binary https://github.com/dynatrace-oss/dynatrace-monitoring-as-code/releases/download/$MONACO_BINARY
     chmod +x monaco-binary
-    echo "Installed monaco version: $(monaco-binary --version)"
+    echo "Installed monaco version: $(./monaco-binary --version)"
 }
 
 run_monaco() {
