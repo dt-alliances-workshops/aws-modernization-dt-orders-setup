@@ -11,7 +11,7 @@ APP_SCRIPTS_FULL_PATH=/home/dtu_training/aws-modernization-dt-orders-setup/app-s
 
 setup_monolith() {
     echo "----------------------------------------------------"
-    echo "Setup Tools"
+    echo "Setup Monolith Tools"
     echo "----------------------------------------------------"
     apt-get update
     apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
@@ -30,7 +30,7 @@ setup_monolith() {
 
 setup_services() {
     echo "----------------------------------------------------"
-    echo "Setup Tools"
+    echo "Setup Services Tools"
     echo "----------------------------------------------------"
     apt-get update
     apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
