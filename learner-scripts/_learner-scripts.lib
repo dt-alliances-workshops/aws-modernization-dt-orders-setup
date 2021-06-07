@@ -40,7 +40,7 @@ setServicesVersion() {
   elif [[ "$SERVICE" = "customer" && "$LAB_NAME" = "SERVICES" ]]; then
     TAG_SERVICE=customer-service
     TAG_STAGE=dev
-  elif [[] "$SERVICE" = "backend" && "$LAB_NAME" = "MONOLITH" ]]; then
+  elif [[ "$SERVICE" = "backend" && "$LAB_NAME" = "MONOLITH" ]]; then
     TAG_SERVICE=backend
     TAG_STAGE=production
   else
