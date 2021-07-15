@@ -53,6 +53,8 @@ setup_k3s() {
     echo "----------------------------------------------------"
     apt-get update
     apt-get install -y jq
+    curl -sfL https://get.k3s.io | sh -
+    echo "alias kubectl='k3s kubectl'" >> /home/dtu_training/.profile
 }
 
 case "$HOST_TYPE" in
