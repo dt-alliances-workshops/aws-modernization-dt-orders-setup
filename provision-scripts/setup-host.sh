@@ -47,6 +47,14 @@ setup_services() {
     . $APP_SCRIPTS_FULL_PATH/start-services.sh
 }
 
+setup_k3s() {
+    echo "----------------------------------------------------"
+    echo "Setup Services Tools"
+    echo "----------------------------------------------------"
+    apt-get update
+    apt-get install -y jq
+}
+
 case "$HOST_TYPE" in
     "dt-orders-monolith") 
         echo "===================================================="
@@ -57,6 +65,12 @@ case "$HOST_TYPE" in
     "dt-orders-services") 
         echo "===================================================="
         echo "Setting up: $HOST_TYPE" 
+        echo "===================================================="
+        setup_services
+        ;;
+    "dt-orders-k3s")
+        echo "===================================================="
+        echo "Setting up: $HOST_TYPE"
         echo "===================================================="
         setup_services
         ;;
