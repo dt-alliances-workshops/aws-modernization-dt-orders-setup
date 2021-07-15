@@ -74,7 +74,7 @@ case "$HOST_TYPE" in
         echo "===================================================="
         echo "Setting up: $HOST_TYPE"
         echo "===================================================="
-        setup_services
+        setup_k3s
         ;;
     *) 
         echo "Invalid HOST_TYPE: $HOST_TYPE"
