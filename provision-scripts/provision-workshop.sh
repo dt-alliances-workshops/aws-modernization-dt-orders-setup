@@ -26,7 +26,6 @@ create_stack()
 
   aws cloudformation create-stack \
       --stack-name $STACK_NAME \
-      --profile $AWS_PROFILE \
       --region $AWS_REGION \
       --template-body file://workshopCloudFormationTemplate.yaml \
       --parameters \
@@ -51,14 +50,12 @@ add_aws_keypair()
 {
   # add the keypair needed for ec2 if it does not exist
   KEY=$(aws ec2 describe-key-pairs \
-    --profile $AWS_PROFILE \
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
   if [ -z "$KEY" ]; then
     echo "Creating a keypair named $AWS_KEYPAIR_NAME for the ec2 instances"
     echo "Saving output to $AWS_KEYPAIR_NAME-keypair.json"
     aws ec2 create-key-pair \
       --key-name $AWS_KEYPAIR_NAME \
-      --profile $AWS_PROFILE \
       --region $AWS_REGION \
       --query 'KeyMaterial' \
       --output text > ../gen/$AWS_KEYPAIR_NAME-keypair.pem

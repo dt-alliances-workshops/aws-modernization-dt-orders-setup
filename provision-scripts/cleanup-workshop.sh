@@ -24,7 +24,6 @@ delete_keypair()
   # delete the keypair needed for ec2 if it exists
   AWS_KEYPAIR_NAME=$(cat creds.json | jq -r '.AWS_KEYPAIR_NAME')
   KEY=$(aws ec2 describe-key-pairs \
-    --profile $AWS_PROFILE \
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
   if [ -z "$KEY" ]; then
     echo ""
@@ -33,7 +32,6 @@ delete_keypair()
     echo "Deleting $KEYPAIR_NAME ($INSTANCE_ID)"
     aws ec2 delete-key-pair \
       --key-name $KEYPAIR_NAME \
-      --profile $AWS_PROFILE \
       --region $AWS_REGION
   fi
 
@@ -49,7 +47,6 @@ delete_stack()
 
   aws cloudformation delete-stack \
       --stack-name $STACK_NAME \
-      --profile $AWS_PROFILE \
       --region $AWS_REGION
 
   echo ""
