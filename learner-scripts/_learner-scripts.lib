@@ -47,7 +47,7 @@ showAppUrls() {
   echo "Workshop Application URLs:"
   echo "-----------------------------------------------------------------------------------"
   echo ""
-  if ! [ $PUBLIC_IP_MONOLITH = "null"]; then
+  if ! [[ $PUBLIC_IP_MONOLITH = "null" ]]; then
     echo "MONOLITH"
     echo "https://$PUBLIC_IP_MONOLITH"
     echo ""
@@ -55,7 +55,7 @@ showAppUrls() {
     echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
     echo ""
   fi
-  if ! [ $PUBLIC_IP_SERVICES = "null"]; then
+  if ! [[ $PUBLIC_IP_SERVICES = "null" ]]; then
     echo "SERVICES"
     echo "https://$PUBLIC_IP_SERVICES"
     echo ""
