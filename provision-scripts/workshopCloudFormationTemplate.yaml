@@ -19,8 +19,6 @@ Mappings:
   Common:
     DTOrdersAmi:
       Name: ami-003634241a8fcdec0
-    DTOrdersDockerAmi:
-      Name: ami-003634241a8fcdec0
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -103,7 +101,7 @@ Resources:
           ToPort: '80'
           CidrIp: '0.0.0.0/0'
 
-  DTOrdersDockerInstance:
+  DTOrdersInstance:
     Type: AWS::EC2::Instance
     DependsOn: AttachGateway
     Properties:
@@ -111,7 +109,7 @@ Resources:
       KeyName: !Ref 'KeyName'
       ImageId: !FindInMap
         - Common
-        - DTOrdersDockerAmi
+        - DTOrdersAmi
         - Name
       Tags:
         - Key: Name
@@ -171,5 +169,5 @@ Resources:
           SubnetId: !Ref 'Subnet'
 Outputs:
   InstanceId:
-    Description: InstanceId of the newly created EC2 EZ Travel instance
+    Description: InstanceId of the newly created EC2 instance
     Value: !Ref 'DTOrdersInstance'
