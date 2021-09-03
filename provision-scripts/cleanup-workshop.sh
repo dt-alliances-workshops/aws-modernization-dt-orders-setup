@@ -11,6 +11,7 @@ AWS_REGION=$(cat creds.json | jq -r '.AWS_REGION')
 AWS_KEYPAIR_NAME=$(cat creds.json | jq -r '.AWS_KEYPAIR_NAME')
 RESOURCE_PREFIX=$(cat creds.json | jq -r '.RESOURCE_PREFIX')
 
+AWS_KEYPAIR_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
 STACK_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
 
 delete_keypair()
@@ -22,7 +23,6 @@ delete_keypair()
   echo "-----------------------------------------------------------------------------------"
 
   # delete the keypair needed for ec2 if it exists
-  AWS_KEYPAIR_NAME=$(cat creds.json | jq -r '.AWS_KEYPAIR_NAME')
   KEY=$(aws ec2 describe-key-pairs \
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
   if [ -z "$KEY" ]; then
