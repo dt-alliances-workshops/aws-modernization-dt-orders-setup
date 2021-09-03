@@ -20,8 +20,9 @@ echo "==================================================================="
 echo -e "${YLW}Please enter your Dynatrace credentials as requested below: ${NC}"
 echo "Press <enter> to keep the current value"
 echo "==================================================================="
-read -p "Your last name           (current: $RESOURCE_PREFIX) : " RESOURCE_PREFIX_NEW
-echo    "Dynatrace Base URL       (ex. https://ABC.live.dynatrace.com) "
+echo "Your last name - Max 10 characters:"
+read -p "                         (current: $RESOURCE_PREFIX) : " RESOURCE_PREFIX_NEW
+echo    "Dynatrace Base URL - example https://ABC.live.dynatrace.com"
 read -p "                         (current: $DT_BASEURL) : " DT_BASEURL_NEW
 read -p "Dynatrace PaaS Token     (current: $DT_PAAS_TOKEN) : " DT_PAAS_TOKEN_NEW
 read -p "Dynatrace API Token      (current: $DT_API_TOKEN) : " DT_API_TOKEN_NEW
