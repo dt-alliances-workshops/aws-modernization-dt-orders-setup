@@ -138,11 +138,11 @@ Resources:
             - " --set-infra-only=false"
             - " --set-host-name=dt-orders-monolith"
             - " --set-host-group=dt-orders-monolith\n"
-            - "sudo apt-get update"
-            - "sudo apt-get install -y git" 
-            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup"
-            - "cd /home/ubuntu/aws-modernization-dt-orders-setup && git checkout selfprovision"
-            - "sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-monolith > /tmp/cloud-init-services.log"
+            - "sudo apt-get update\n"
+            - "sudo apt-get install -y git\n"
+            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"
+            - "cd /home/ubuntu/aws-modernization-dt-orders-setup && git checkout selfprovision\n"
+            - "sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-monolith > /tmp/cloud-init-services.log\n"
       NetworkInterfaces:
         - GroupSet:
             - !Ref 'DTOrdersInstanceSecurityGroup'
