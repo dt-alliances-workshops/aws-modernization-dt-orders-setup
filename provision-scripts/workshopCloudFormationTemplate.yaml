@@ -1,0 +1,175 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation Template for the AWS Modernization workshop with Dynatrace.
+  You will be billed for the AWS resources used if you create a stack from this template.
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  LastName:
+    Description: Your last name that will be used in tags and resource prefix
+    Type: String
+  DynatraceBaseURL:
+    Description: Your Dynatrace Base URL (ex. https://ABC.live.dynatrace.com)
+    Type: String
+  DynatracePaasToken:
+    Description: Your Dynatrace PaaS token
+    Type: String
+Mappings:
+  Common:
+    DTOrdersAmi:
+      Name: ami-003634241a8fcdec0
+    DTOrdersDockerAmi:
+      Name: ami-003634241a8fcdec0
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ''
+            - - !Ref 'LastName'
+              - -dynatrace-modernize-workshop
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'VPC'
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ''
+            - - !Ref 'LastName'
+              - -dynatrace-modernize-workshop
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ''
+            - - !Ref 'LastName'
+              - -dynatrace-modernize-workshop
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref 'VPC'
+      InternetGatewayId: !Ref 'InternetGateway'
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'VPC'
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ''
+            - - !Ref 'LastName'
+              - -dynatrace-modernize-workshop
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  Route:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'InternetGateway'
+  SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'Subnet'
+      RouteTableId: !Ref 'RouteTable'
+  DTOrdersInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access
+      VpcId: !Ref 'VPC'
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: tcp
+          FromPort: '8080'
+          ToPort: '8080'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: '0.0.0.0/0'
+
+  DTOrdersDockerInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: AttachGateway
+    Properties:
+      InstanceType: t3.xlarge
+      KeyName: !Ref 'KeyName'
+      ImageId: !FindInMap
+        - Common
+        - DTOrdersDockerAmi
+        - Name
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ''
+            - - !Ref 'LastName'
+              - -dt-orders-monolith
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: '16'
+            DeleteOnTermination: 'true'
+            Encrypted: 'false'
+      UserData: !Base64
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash\n"
+            - wget -O Dynatrace-OneAgent.sh "
+            - !Ref 'DynatraceBaseURL'
+            - /api/v1/deployment/installer/agent/unix/default/latest?Api-Token=
+            - !Ref 'DynatracePaasToken'
+            - "&arch=x86&flavor=default\"\n"
+            - "/bin/sh Dynatrace-OneAgent.sh"
+            - " --set-app-log-content-access=true"
+            - " --set-infra-only=false"
+            - " --set-host-name="
+            - !Ref 'LastName'
+            - "-dt-orders-monolith"
+            - " --set-host-group=dt-orders-monolith\n"
+            - "sudo apt-get update\n"
+            - "sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent\
+              \ software-properties-common\n"
+            - "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key\
+              \ add -\n"
+            - "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu\
+              \ $(lsb_release -cs) stable\"\n"
+            - "sudo apt-get update\n"
+            - "sudo apt-get install -y docker-ce docker-ce-cli containerd.io\n"
+            - "sudo apt-get install -y git jq\n"
+            - "sudo apt install -y docker-compose\n"
+            - "useradd -s /bin/bash -d /home/workshop/ -m -G sudo -p $(openssl passwd\
+              \ -1 Workshop123#) workshop\n"
+            - "sudo mkdir -p /home/workshop\n"
+            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git\
+              \ /home/workshop/aws-modernization-dt-orders-setup\n"
+            - "sudo chown workshop:workshop -R /home/workshop\n"
+            - "sudo usermod -a -G sudo workshop\n"
+            - "sudo docker-compose -f /home/workshop/aws-modernization-dt-orders-setup/\
+              \ up -d\n"
+      NetworkInterfaces:
+        - GroupSet:
+            - !Ref 'DTOrdersInstanceSecurityGroup'
+          AssociatePublicIpAddress: 'true'
+          DeviceIndex: '0'
+          DeleteOnTermination: 'true'
+          SubnetId: !Ref 'Subnet'
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 EZ Travel instance
+    Value: !Ref 'DTOrdersInstance'

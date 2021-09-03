@@ -4,8 +4,6 @@ The repo contains the setup and learner scripts to support [this AWS and Dynatra
 
 <img src="dt-aws.png" width="400"/> 
 
-A learner generally would not run any scripts within this repo.  The scripts and files used by the [Dynatrace Training University (DTU)](https://university.dynatrace.com)) provisioning scripts that pre-provision the workshop for each learner.
-
 # Repo Structure
 
 1. `provision-scripts/` - Scripts related to installing any prerequisite software
@@ -19,7 +17,7 @@ See the README files in the subfolders for additional details.
 
 The various scripts assume the learners unique credentials are stored in this file within this folder.
 
-`/home/dtu_training/workshop-credentials.json`
+`/home/workshop/workshop-credentials.json`
 
 The expected format as follows:
 
