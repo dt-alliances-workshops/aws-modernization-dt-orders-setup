@@ -4,8 +4,6 @@ CREDS_FILE=../gen/workshop-credentials.json
 
 if [ -f "$CREDS_FILE" ]
 then
-    AZURE_RESOURCE_GROUP=$(cat $CREDS_FILE | jq -r '.AZURE_RESOURCE_GROUP')
-    AZURE_SUBSCRIPTION=$(cat $CREDS_FILE | jq -r '.AZURE_SUBSCRIPTION')
     DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
     DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
     RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
@@ -32,7 +30,7 @@ getMonolithPublicIP() {
 getServicesPublicIP() {
   HOSTNAME_SERVICES="$RESOURCE_PREFIX-dt-orders-services"
   echo "Retrieving $HOSTNAME_SERVICES Public IP"
-  PUBLIC_IP_MONOLITH="$(aws ec2 describe-instances \
+  PUBLIC_IP_SERVICES="$(aws ec2 describe-instances \
     --filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values=$HOSTNAME_SERVICES" \
     --region $AWS_REGION \
     | jq -r '.Reservations[0].Instances[0].PublicIpAddress' )"
