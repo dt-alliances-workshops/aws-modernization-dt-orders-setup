@@ -61,7 +61,7 @@ add_aws_keypair()
       --profile $AWS_PROFILE \
       --region $AWS_REGION \
       --query 'KeyMaterial' \
-      --output text > gen/$AWS_KEYPAIR_NAME-keypair.pem
+      --output text > ../gen/$AWS_KEYPAIR_NAME-keypair.pem
 
     # adjust permissions required for ssh
     chmod 400 ../gen/$AWS_KEYPAIR_NAME-keypair.pem
