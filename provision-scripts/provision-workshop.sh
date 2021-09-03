@@ -50,7 +50,6 @@ setup_workshop_config()
 add_aws_keypair()
 {
   # add the keypair needed for ec2 if it does not exist
-  AWS_KEYPAIR_NAME=$(cat $CREDS_FILE | jq -r '.AWS_KEYPAIR_NAME')
   KEY=$(aws ec2 describe-key-pairs \
     --profile $AWS_PROFILE \
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
