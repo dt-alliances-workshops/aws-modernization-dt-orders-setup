@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOGFILE='/tmp/start-monolith.log' 
-APP_SCRIPTS_PATH=/home/workshop/aws-modernization-dt-orders-setup/app-scripts
+APP_SCRIPTS_PATH=/home/ubuntu/aws-modernization-dt-orders-setup/app-scripts
 START_TIME="$(date)"
 
 printf "\n\n***** Init Log ***\n" > $LOGFILE 2>&1

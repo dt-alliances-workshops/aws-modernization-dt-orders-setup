@@ -53,15 +53,15 @@ add_aws_keypair()
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
   if [ -z "$KEY" ]; then
     echo "Creating a keypair named $AWS_KEYPAIR_NAME for the ec2 instances"
-    echo "Saving output to $AWS_KEYPAIR_NAME-keypair.json"
+    echo "Saving output to ../gen/$AWS_KEYPAIR_NAME-keypair.json"
     aws ec2 create-key-pair \
       --key-name $AWS_KEYPAIR_NAME \
       --region $AWS_REGION \
       --query 'KeyMaterial' \
-      --output text > ../gen/$AWS_KEYPAIR_NAME-keypair.pem
+      --output text > ../gen/dynatrace-modernize-workshop.pem
 
     # adjust permissions required for ssh
-    chmod 400 ../gen/$AWS_KEYPAIR_NAME-keypair.pem
+    chmod 400 ../gen/dynatrace-modernize-workshop.pem
   else
     echo "Skipping, add key-pair $AWS_KEYPAIR_NAME since it exists"
   fi

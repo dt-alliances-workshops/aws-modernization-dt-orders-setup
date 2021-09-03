@@ -5,7 +5,7 @@ if ! [ $(id -u) = 0 ]; then
    exit 1
 fi
 
-APP_SCRIPTS_PATH=/home/workshop/aws-modernization-dt-orders-setup/app-scripts
+APP_SCRIPTS_PATH=/home/ubuntu/aws-modernization-dt-orders-setup/app-scripts
 
 echo "*** Stopping Services ***"
 sudo docker-compose -f "$APP_SCRIPTS_PATH/docker-compose-services.yaml" down

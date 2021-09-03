@@ -10,9 +10,9 @@ MONACO_CONFIG_FOLDER="$MONACO_PROJECT_BASE_PATH/$MONACO_PROJECT"
 download_monaco() {
     if [ $(uname -s) == "Darwin" ]
     then
-        MONACO_BINARY="v1.5.0/monaco-darwin-10.6-amd64"
+        MONACO_BINARY="v1.6.0/monaco-darwin-10.12-amd64"
     else
-        MONACO_BINARY="v1.5.0/monaco-linux-amd64"
+        MONACO_BINARY="v1.6.0/monaco-linux-amd64"
     fi
     echo "Getting MONACO_BINARY = $MONACO_BINARY"
     rm -f monaco-binary

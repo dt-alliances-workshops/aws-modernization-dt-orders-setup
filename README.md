@@ -13,26 +13,6 @@ The repo contains the setup and learner scripts to support [this AWS and Dynatra
 
 See the README files in the subfolders for additional details.
 
-# Prerequisites
-
-The various scripts assume the learners unique credentials are stored in this file within this folder.
-
-`/home/workshop/workshop-credentials.json`
-
-The expected format as follows:
-
-```
-{
-    "LAB_NAME": "RESOURCE_PREFIX_PLACEHOLDER",
-    "DT_BASEURL": "DT_BASEURL_PLACEHOLDER",
-    "DT_PAAS_TOKEN": "DT_PAAS_TOKEN_PLACEHOLDER",
-    "DT_API_TOKEN": "DT_API_TOKEN_PLACEHOLDER"
-}
-```
-Notes:
-* `LAB_NAME` is value of `MONOLITH` or `SERVICES`
-* `DT_BASEURL` is format such as `https://xxxx.live.dynatrace.com`
-
 # Feedback
 
 Whether it's a bug report, new feature, correction, or additional documentation, we greatly value feedback and contributions.

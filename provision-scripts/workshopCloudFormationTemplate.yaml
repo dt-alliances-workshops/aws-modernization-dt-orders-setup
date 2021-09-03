@@ -136,30 +136,12 @@ Resources:
             - "/bin/sh Dynatrace-OneAgent.sh"
             - " --set-app-log-content-access=true"
             - " --set-infra-only=false"
-            - " --set-host-name="
-            - !Ref 'LastName'
-            - "-dt-orders-monolith"
+            - " --set-host-name=dt-orders-monolith"
             - " --set-host-group=dt-orders-monolith\n"
-            - "sudo apt-get update\n"
-            - "sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent\
-              \ software-properties-common\n"
-            - "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key\
-              \ add -\n"
-            - "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu\
-              \ $(lsb_release -cs) stable\"\n"
-            - "sudo apt-get update\n"
-            - "sudo apt-get install -y docker-ce docker-ce-cli containerd.io\n"
-            - "sudo apt-get install -y git jq\n"
-            - "sudo apt install -y docker-compose\n"
-            - "useradd -s /bin/bash -d /home/workshop/ -m -G sudo -p $(openssl passwd\
-              \ -1 Workshop123#) workshop\n"
-            - "sudo mkdir -p /home/workshop\n"
-            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git\
-              \ /home/workshop/aws-modernization-dt-orders-setup\n"
-            - "sudo chown workshop:workshop -R /home/workshop\n"
-            - "sudo usermod -a -G sudo workshop\n"
-            - "sudo docker-compose -f /home/workshop/aws-modernization-dt-orders-setup/\
-              \ up -d\n"
+            - "sudo apt-get update"
+            - "sudo apt-get install -y git"
+            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git"
+            - "sudo sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-monolith > /tmp/cloud-init-services.log"
       NetworkInterfaces:
         - GroupSet:
             - !Ref 'DTOrdersInstanceSecurityGroup'
