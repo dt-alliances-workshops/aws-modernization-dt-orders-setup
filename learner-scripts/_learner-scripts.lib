@@ -47,19 +47,21 @@ showAppUrls() {
   echo "Workshop Application URLs:"
   echo "-----------------------------------------------------------------------------------"
   echo ""
-  if ! [ -z $PUBLIC_IP_MONOLITH ]; then
+  if ! [ $PUBLIC_IP_MONOLITH = "null"]; then
     echo "MONOLITH"
     echo "https://$PUBLIC_IP_MONOLITH"
     echo ""
     echo "To SSH to host use:"
     echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
+    echo ""
   fi
-  if ! [ -z $PUBLIC_IP_SERVICES ]; then
+  if ! [ $PUBLIC_IP_SERVICES = "null"]; then
     echo "SERVICES"
     echo "https://$PUBLIC_IP_SERVICES"
     echo ""
     echo "To SSH to host use:"
     echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
+    echo 
   fi
   if ! [ -z $PUBLIC_IP_k8 ]; then
     echo "K8"
