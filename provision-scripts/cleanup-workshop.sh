@@ -6,10 +6,10 @@ if ! [ -f "$CREDS_FILE" ]; then
   exit 1
 fi
 
-AWS_PROFILE=$(cat creds.json | jq -r '.AWS_PROFILE')
-AWS_REGION=$(cat creds.json | jq -r '.AWS_REGION')
-AWS_KEYPAIR_NAME=$(cat creds.json | jq -r '.AWS_KEYPAIR_NAME')
-RESOURCE_PREFIX=$(cat creds.json | jq -r '.RESOURCE_PREFIX')
+AWS_PROFILE=$(cat $CREDS_FILE | jq -r '.AWS_PROFILE')
+AWS_REGION=$(cat $CREDS_FILE | jq -r '.AWS_REGION')
+AWS_KEYPAIR_NAME=$(cat $CREDS_FILE | jq -r '.AWS_KEYPAIR_NAME')
+RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
 
 AWS_KEYPAIR_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
 STACK_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
