@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CREDS_FILE=../gen/workshop-credentials.json
+CREDS_FILE="../gen/workshop-credentials.json"
 if ! [ -f "$CREDS_FILE" ]; then
   echo "ERROR: missing $CREDS_FILE"
   exit 1
