@@ -6,12 +6,12 @@ if ! [ -f "$CREDS_FILE" ]; then
   exit 1
 fi
 
-RESOURCE_PREFIX=$(cat creds.json | jq -r '.RESOURCE_PREFIX')
+RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
 DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
 DT_PAAS_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_PAAS_TOKEN')
 DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
-AWS_PROFILE=$(cat creds.json | jq -r '.AWS_PROFILE')
-AWS_REGION=$(cat creds.json | jq -r '.AWS_REGION')
+AWS_PROFILE=$(cat $CREDS_FILE | jq -r '.AWS_PROFILE')
+AWS_REGION=$(cat $CREDS_FILE | jq -r '.AWS_REGION')
 
 AWS_KEYPAIR_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
 STACK_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
@@ -50,7 +50,7 @@ setup_workshop_config()
 add_aws_keypair()
 {
   # add the keypair needed for ec2 if it does not exist
-  AWS_KEYPAIR_NAME=$(cat creds.json | jq -r '.AWS_KEYPAIR_NAME')
+  AWS_KEYPAIR_NAME=$(cat $CREDS_FILE | jq -r '.AWS_KEYPAIR_NAME')
   KEY=$(aws ec2 describe-key-pairs \
     --profile $AWS_PROFILE \
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
