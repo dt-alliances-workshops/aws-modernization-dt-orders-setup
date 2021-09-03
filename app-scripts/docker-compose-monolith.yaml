@@ -13,6 +13,7 @@ services:
       - DT_APPLICATION_ENVIRONMENT=production
       - DT_APPLICATION_NAME=dt-orders-frontend
       - DT_APPLICATION_RELEASE_VERSION=1
+      - DT_RELEASE_BUILD_VERSION=1
   backend-service:
     hostname: backend
     image: dtdemos/dt-orders-backend-monolith:1
@@ -28,6 +29,7 @@ services:
       - DT_APPLICATION_ENVIRONMENT=production
       - DT_APPLICATION_NAME=dt-orders-backend
       - DT_APPLICATION_RELEASE_VERSION=1
+      - DT_RELEASE_BUILD_VERSION=1
   order-load:
     hostname: load
     image: dtdemos/dt-orders-load:1
