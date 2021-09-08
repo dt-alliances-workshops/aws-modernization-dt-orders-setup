@@ -1,0 +1,3 @@
+delete:
+  - "management-zone/dt-orders-services"
+  - "slo/DT-Orders Services Error Rate"

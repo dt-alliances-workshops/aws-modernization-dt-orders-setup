@@ -6,6 +6,10 @@ if ! [ -f "$CREDS_FILE" ]; then
   exit 1
 fi
 
+# optional argument.  If not based, then the base workshop is setup.
+# setup types are for additional features like kubernetes
+SETUP_TYPE=$1
+
 RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
 DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
 DT_PAAS_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_PAAS_TOKEN')
@@ -24,6 +28,7 @@ create_stack()
   echo "-----------------------------------------------------------------------------------"
   echo "Creating CloudFormation Stack $STACK_NAME"
   echo "-----------------------------------------------------------------------------------"
+  echo ""
 
   aws cloudformation create-stack \
       --stack-name $STACK_NAME \
@@ -49,6 +54,13 @@ setup_workshop_config()
 
 add_aws_keypair()
 {
+
+  echo ""
+  echo "-----------------------------------------------------------------------------------"
+  echo "Adding AWS KeyPair $AWS_KEYPAIR_NAME"
+  echo "-----------------------------------------------------------------------------------"
+  echo ""
+
   # add the keypair needed for ec2 if it does not exist
   KEY=$(aws ec2 describe-key-pairs \
     --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
@@ -70,33 +82,40 @@ add_aws_keypair()
 
 ############################################################
 echo "==================================================================="
-echo "About to provision AWS workshop resources"
-echo ""
-echo "1) Add Dynatrace configuration to: $DT_BASEURL"
-echo "2) Add AWS keypair: $AWS_KEYPAIR_NAME"
-echo "3) Create AWS CLoudformation stack: $STACK_NAME"
+echo "About to Provision Workshop - $SETUP_TYPE"
 echo "==================================================================="
-read -p "Proceed with creation? (y/n) : " -n 1 -r
+read -p "Proceed? (y/n) : " REPLY;
+if [ "$REPLY" != "y" ]; then exit 0; fi
 echo ""
+echo "=========================================="
+echo "Provisioning workshop resources"
+echo "Starting   : $(date)"
+echo "=========================================="
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+case "$SETUP_TYPE" in
+    "k8") 
+        echo "Setup type = $SETUP_TYPE"
+        setup_workshop_config k8
+        ;;
+    "services-vm") 
+        echo "Setup type = $SETUP_TYPE"
+        setup_workshop_config services-vm
+        ;;
+    *)
+        echo "Setup type = base workshop"
+        setup_workshop_config
+        add_aws_keypair
+        create_stack
 
-  echo ""
-  echo "=========================================="
-  echo "Provisioning AWS workshop resources"
-  echo "Starting: $(date)"
-  echo "=========================================="
+        echo ""
+        echo "Monitor CloudFormation stack status @ https://console.aws.amazon.com/cloudformation/home"
+        echo ""
+        ;;
+esac
 
-  setup_workshop_config
-  add_aws_keypair
-  create_stack
-
-  echo ""
-  echo "============================================="
-  echo "Provisioning AWS workshop resources COMPLETE"
-  echo "End: $(date)"
-  echo "============================================="
-  echo ""
-  echo "Monitor CloudFormation stack status @ https://console.aws.amazon.com/cloudformation/home"
-  
-fi
+echo ""
+echo "============================================="
+echo "Provisioning workshop resources COMPLETE"
+echo "End: $(date)"
+echo "============================================="
+echo ""

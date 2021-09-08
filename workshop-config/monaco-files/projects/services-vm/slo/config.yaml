@@ -1,0 +1,6 @@
+config:
+  - services-slo: "services-slo.json"
+
+services-slo:
+  - name: "DT-Orders Services Error Rate"
+  - mzname: "services-vm/management-zone/dt-orders-services.name"

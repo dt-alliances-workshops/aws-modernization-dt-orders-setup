@@ -1,0 +1,13 @@
+config:
+  - project: "auto-tag-project.json"
+  - service: "auto-tag-service.json"
+  - stage: "auto-tag-stage.json"
+
+project:
+  - name: "project"
+
+service:
+  - name: "service"
+
+stage:
+  - name: "stage"

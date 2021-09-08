@@ -1,8 +1,0 @@
-delete:
-  - "auto-tag/auto-tag-project"
-  - "auto-tag/auto-tag-service"
-  - "auto-tag/auto-tag-stage"
-  - "management-zone/dt-orders-monolith"
-  - "management-zone/dt-orders-service"
-  - "slo/DT-Orders Monolith Error Rate"
-  - "slo/DT-Orders Services Error Rate"

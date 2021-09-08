@@ -1,0 +1,4 @@
+delete:
+  - "management-zone/dt-orders-k8"
+  - "conditional-naming-processgroup/dt-orders"
+  - "slo/DT-Orders K8 Error Rate"

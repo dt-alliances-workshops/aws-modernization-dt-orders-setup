@@ -2,6 +2,7 @@
 .DS_Store
 .logs
 todo.txt
+install.sh
 
 # generated files
 gen/workshop-credentials.json*
@@ -12,4 +13,4 @@ gen/*.bak
 gen/*.pem
 
 # downloaded files
-workshop-config/monaco-binary
+workshop-config/monaco

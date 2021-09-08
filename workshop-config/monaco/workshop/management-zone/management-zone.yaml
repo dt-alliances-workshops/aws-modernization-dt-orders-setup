@@ -1,7 +1,0 @@
-config:
-- dt-orders-services: dt-orders-services.json
-- dt-orders-monolith: dt-orders-monolith.json
-dt-orders-monolith:
-- name: dt-orders-monolith
-dt-orders-services:
-- name: dt-orders-services

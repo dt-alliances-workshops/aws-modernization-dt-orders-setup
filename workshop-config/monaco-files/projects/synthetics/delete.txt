@@ -1,0 +1,4 @@
+delete:
+  - "synthetic-monitor/Demo Availability Site 1"
+  - "synthetic-monitor/Demo Availability Site 2"
+  - "synthetic-monitor/Demo Availability Site 3"

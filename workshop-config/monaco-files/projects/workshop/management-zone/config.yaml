@@ -1,0 +1,5 @@
+config:
+  - dt-orders-monolith: "dt-orders-monolith.json"
+
+dt-orders-monolith:
+  - name: "dt-orders-monolith"
