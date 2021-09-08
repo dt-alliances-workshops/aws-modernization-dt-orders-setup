@@ -112,9 +112,7 @@ setServicesVersion() {
         exit 1
       fi
       PUBLIC_IP=$PUBLIC_IP_k8
-      
-      if [[ "$NEW_VERSION" = "1"
-      
+            
       # update the manifest file and reapply
       sed -ie "s|version: .*$|version: $NEW_VERSION|" $MANIFEST_FILE
       kubectl apply -f $MANIFEST_FILE
