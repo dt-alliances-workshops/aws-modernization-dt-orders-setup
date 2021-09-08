@@ -81,7 +81,7 @@
             "height": 304
         },
         "tileFilter": {},
-        "markdown": "**Service Performance**\n\nthe Service tile shows the average Response Time and Failure Rate as well as the number of Requests per minute, which are three key performance indicators for monitoring service quality.\n\nThis is tracking the performance of the target K8 Cloud application being migrated to."
+        "markdown": "**K8 Service Performance**\n\nthe Service tile shows the average Response Time and Failure Rate as well as the number of Requests per minute, which are three key performance indicators for monitoring service quality.\n\nThis is tracking the performance of the target K8 Cloud application being migrated to."
     }, {
         "name": "Markdown",
         "tileType": "MARKDOWN",

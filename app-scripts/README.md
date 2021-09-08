@@ -2,11 +2,9 @@
 
 These scripts stop and start the dt-orders application in both monolith and services mode.
 
-A learner generally would not run any scripts within this repo.  The scripts and files used by the [Dynatrace Training University (DTU)](https://university.dynatrace.com)) provisioning scripts that pre-provision the workshop for each learner.
-
 # Prerequisites
 
-1. This repo was git cloned to `/home/dtu_training/aws-modernization-dt-orders-setup`
+1. This repo was git cloned to `/home/ubuntu/aws-modernization-dt-orders-setup`
 
 1. The VM running Docker and has Docker-Compose installed
 

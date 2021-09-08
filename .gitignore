@@ -3,5 +3,13 @@
 .logs
 todo.txt
 
+# generated files
+gen/workshop-credentials.json*
+gen/*cloud-init*
+gen/*.json
+gen/*.txt
+gen/*.bak
+gen/*.pem
+
 # downloaded files
 workshop-config/monaco-binary

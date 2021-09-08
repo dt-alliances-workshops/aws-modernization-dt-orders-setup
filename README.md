@@ -4,8 +4,6 @@ The repo contains the setup and learner scripts to support [this AWS and Dynatra
 
 <img src="dt-aws.png" width="400"/> 
 
-A learner generally would not run any scripts within this repo.  The scripts and files used by the [Dynatrace Training University (DTU)](https://university.dynatrace.com)) provisioning scripts that pre-provision the workshop for each learner.
-
 # Repo Structure
 
 1. `provision-scripts/` - Scripts related to installing any prerequisite software
@@ -14,26 +12,6 @@ A learner generally would not run any scripts within this repo.  The scripts and
 1. `learner-scripts/` - Scripts that get copied for learner to use in workshop labs.
 
 See the README files in the subfolders for additional details.
-
-# Prerequisites
-
-The various scripts assume the learners unique credentials are stored in this file within this folder.
-
-`/home/dtu_training/workshop-credentials.json`
-
-The expected format as follows:
-
-```
-{
-    "LAB_NAME": "RESOURCE_PREFIX_PLACEHOLDER",
-    "DT_BASEURL": "DT_BASEURL_PLACEHOLDER",
-    "DT_PAAS_TOKEN": "DT_PAAS_TOKEN_PLACEHOLDER",
-    "DT_API_TOKEN": "DT_API_TOKEN_PLACEHOLDER"
-}
-```
-Notes:
-* `LAB_NAME` is value of `MONOLITH` or `SERVICES`
-* `DT_BASEURL` is format such as `https://xxxx.live.dynatrace.com`
 
 # Feedback
 

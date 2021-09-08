@@ -1,64 +1,129 @@
 #!/bin/bash
 
-CREDS_FILE=/home/dtu_training/workshop-credentials.json
-PUBLIC_IP=$(curl -s ifconfig.me/ip)
+CREDS_FILE=../gen/workshop-credentials.json
 
 if [ -f "$CREDS_FILE" ]
 then
     DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
     DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
-    DT_PAAS_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_PAAS_TOKEN')
-    LAB_NAME=$(cat $CREDS_FILE | jq -r '.LAB_NAME')
+    RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
+    CLUSTER_NAME="dynatrace-workshop-cluster"
 else 
   echo "ABORT: CREDS_FILE: $CREDS_FILE not found"
   exit 1
 fi
 
-showMe() {
+getk8FrontEndPublicIP() {
+  echo "Retrieving $CLUSTER_NAME frontend Public IP"
+  PUBLIC_IP_k8=$(kubectl -n staging get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+}
+
+getMonolithPublicIP() {
+  HOSTNAME_MONOLITH="$RESOURCE_PREFIX-dt-orders-monolith"
+  echo "Retrieving $HOSTNAME_MONOLITH Public IP"
+  PUBLIC_IP_MONOLITH="$(aws ec2 describe-instances \
+    --filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values=$HOSTNAME_MONOLITH" \
+    --region $AWS_REGION \
+    | jq -r '.Reservations[0].Instances[0].PublicIpAddress' )"
+}
+
+getServicesPublicIP() {
+  HOSTNAME_SERVICES="$RESOURCE_PREFIX-dt-orders-services"
+  echo "Retrieving $HOSTNAME_SERVICES Public IP"
+  PUBLIC_IP_SERVICES="$(aws ec2 describe-instances \
+    --filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values=$HOSTNAME_SERVICES" \
+    --region $AWS_REGION \
+    | jq -r '.Reservations[0].Instances[0].PublicIpAddress' )"
+}
+
+showAppUrls() {
+
+  getMonolithPublicIP
+  getServicesPublicIP
+  getk8FrontEndPublicIP
+  
   echo ""
-  echo "===================================================="
-  echo "LAB_NAME      : $LAB_NAME"
-  echo "DT_BASEURL    : $DT_BASEURL"
-  echo "DT_API_TOKEN  : $DT_API_TOKEN"
-  echo "DT_PAAS_TOKEN : $DT_PAAS_TOKEN"
-  echo "Public IP     : $PUBLIC_IP"
-  echo "hostname      : $(hostname)"
-  echo "whoami        : $(whoami)"
-  echo "==================================================="
+  echo "-----------------------------------------------------------------------------------"
+  echo "Workshop Application URLs:"
+  echo "-----------------------------------------------------------------------------------"
+  echo ""
+  if ! [[ $PUBLIC_IP_MONOLITH = "null" ]]; then
+    echo "MONOLITH"
+    echo "http://$PUBLIC_IP_MONOLITH"
+    echo ""
+    echo "To SSH to host use:"
+    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
+    echo ""
+  fi
+  if ! [[ $PUBLIC_IP_SERVICES = "null" ]]; then
+    echo "SERVICES"
+    echo "http://$PUBLIC_IP_SERVICES"
+    echo ""
+    echo "To SSH to host use:"
+    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
+    echo 
+  fi
+  if ! [ -z $PUBLIC_IP_k8 ]; then
+    echo "K8"
+    echo "https://$PUBLIC_IP_k8"
+    echo ""
+  fi
   echo ""
 }
 
 setServicesVersion() {
   SERVICE=$1
   NEW_VERSION=$2
-
   TAG_PROJECT=dt-orders
 
-  if [[ "$SERVICE" = "order" && "$LAB_NAME" = "SERVICES" ]]; then
+  if [ "$SERVICE" = "order" ]; then
     TAG_SERVICE=order-service
     TAG_STAGE=dev
-  elif [[ "$SERVICE" = "customer" && "$LAB_NAME" = "SERVICES" ]]; then
+  elif [ "$SERVICE" = "customer" ]; then
     TAG_SERVICE=customer-service
     TAG_STAGE=dev
-  elif [[ "$SERVICE" = "backend" && "$LAB_NAME" = "MONOLITH" ]]; then
+  elif [ "$SERVICE" = "backend" ]; then
     TAG_SERVICE=backend
     TAG_STAGE=production
+  elif [ "$SERVICE" = "k8-order" ]; then
+    SERVICE=order
+    TAG_SERVICE=order-service
+    TAG_STAGE=staging
+  elif [ "$SERVICE" = "k8-customer" ]; then
+    SERVICE=customer
+    TAG_SERVICE=customer-service
+    TAG_STAGE=staging
   else
-    echo "ERROR setServicesVersion(): missing or invalid SERVICE $SERVICE"
-    echo "Required arguments are: SERVICE NEW_VERSION. Must be value of:"
-    echo "  'backend' for MONOLITH host"
-    echo "  'order' or 'customer' for SERVICES host"
+    echo "ERROR setServicesVersion(): missing or invalid SERVICE $SERVICE : must be value of [order,customer,k8-order,k8-customer or backend"
+    echo "Required arguments are: SERVICE NEW_VERSION"
     exit 1
   fi
 
   if [[ "$NEW_VERSION" = "1" || "$NEW_VERSION" = "2" || "$NEW_VERSION" = "3" ]]; then
+    if [ "$TAG_STAGE" = "production" ]; then
+      getMonolithPublicIP
+      PUBLIC_IP=$PUBLIC_IP_MONOLITH
+    elif [ "$TAG_STAGE" = "staging" ]; then
+      getk8FrontEndPublicIP
+      if [ -z $PUBLIC_IP_k8 ]; then
+        echo "ERROR: Can't find k8 service. Not attempting to set version."
+        exit 1
+      fi
+      PUBLIC_IP=$PUBLIC_IP_k8
+    else
+      getServicesPublicIP
+      PUBLIC_IP=$PUBLIC_IP_SERVICES
+    fi
+    
+    SET_VERSION_URL="http://$PUBLIC_IP/$SERVICE/setversion/$NEW_VERSION"
+
     echo "================================================================="
     echo "Setting Service Version"
-    echo "SERVICE     = $SERVICE"
-    echo "NEW_VERSION = $NEW_VERSION"
-    echo "PUBLIC URL  = http://$PUBLIC_IP"
+    echo "SERVICE         = $SERVICE"
+    echo "NEW_VERSION     = $NEW_VERSION"
+    echo "SET_VERSION_URL = $SET_VERSION_URL"
     echo "================================================================="
-    RETURN_MESSAGE=$(curl -s -X GET "http://$PUBLIC_IP/$SERVICE/setversion/$NEW_VERSION")
+    RETURN_MESSAGE=$(curl -s -X GET $SET_VERSION_URL)
     if [[ "$RETURN_MESSAGE" == *"Action was successful"* || "$RETURN_MESSAGE" == *"Set version to"* ]]; then
       echo "Set $SERVICE to $NEW_VERSION was successful"
     else

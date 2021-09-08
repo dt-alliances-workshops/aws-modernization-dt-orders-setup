@@ -7,7 +7,7 @@ then
     exit 1
 fi
 
-APP_SCRIPTS_FULL_PATH=/home/dtu_training/aws-modernization-dt-orders-setup/app-scripts
+APP_SCRIPTS_FULL_PATH=/home/ubuntu/aws-modernization-dt-orders-setup/app-scripts
 
 setup_monolith() {
     echo "----------------------------------------------------"
@@ -54,7 +54,7 @@ setup_k3s() {
     apt-get update
     apt-get install -y jq
     curl -sfL https://get.k3s.io | sh -
-    echo "alias kubectl='k3s kubectl'" >> /home/dtu_training/.profile
+    echo "alias kubectl='k3s kubectl'" >> /home/ubuntu/.profile
 }
 
 case "$HOST_TYPE" in
