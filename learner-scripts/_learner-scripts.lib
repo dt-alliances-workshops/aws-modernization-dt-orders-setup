@@ -89,10 +89,12 @@ setServicesVersion() {
     SERVICE=order
     TAG_SERVICE=order-service
     TAG_STAGE=staging
+    MANIFEST_FILE="../app-scripts/manifests/order-service.yml"
   elif [ "$SERVICE" = "k8-customer" ]; then
     SERVICE=customer
     TAG_SERVICE=customer-service
     TAG_STAGE=staging
+    MANIFEST_FILE="../app-scripts/manifests/customer-service.yml"
   else
     echo "ERROR setServicesVersion(): missing or invalid SERVICE $SERVICE : must be value of [order,customer,k8-order,k8-customer or backend"
     echo "Required arguments are: SERVICE NEW_VERSION"
@@ -110,6 +112,14 @@ setServicesVersion() {
         exit 1
       fi
       PUBLIC_IP=$PUBLIC_IP_k8
+            
+      echo ""
+      echo "Updating $MANIFEST_FILE"
+      echo "Setting version to $NEW_VERSION"
+      sed -ie "s|version: .*$|version: \"$NEW_VERSION\"|" $MANIFEST_FILE
+      echo
+      kubectl -n staging apply -f $MANIFEST_FILE
+
     else
       getServicesPublicIP
       PUBLIC_IP=$PUBLIC_IP_SERVICES

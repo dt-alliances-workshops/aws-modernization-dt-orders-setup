@@ -1,0 +1,6 @@
+config:
+  - monolith-slo: "monolith-slo.json"
+
+monolith-slo:
+  - name: "DT-Orders Monolith Error Rate"
+  - mzname: "workshop/management-zone/dt-orders-monolith.name"

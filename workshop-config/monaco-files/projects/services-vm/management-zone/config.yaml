@@ -1,0 +1,5 @@
+config:
+  - dt-orders-services: "dt-orders-services.json"
+
+dt-orders-services:
+  - name: "dt-orders-services"

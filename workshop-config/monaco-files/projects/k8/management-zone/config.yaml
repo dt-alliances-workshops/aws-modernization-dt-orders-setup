@@ -1,0 +1,5 @@
+config:
+  - dt-orders-k8: "dt-orders-k8.json"
+
+dt-orders-k8:
+  - name: "dt-orders-k8"

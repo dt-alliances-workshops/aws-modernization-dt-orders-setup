@@ -4,13 +4,15 @@ source ./_workshop-config.lib
 
 run_monaco_delete() {
     # run monaco as code script
-    PROJECT_BASE_PATH=./monaco/projects
-    PROJECT=workshop
-    ENVIONMENT_FILE=./monaco/environments.yaml
+    PROJECT_BASE_PATH=./monaco-files/projects
+    PROJECT=$1
+    ENVIONMENT_FILE=./monaco-files/environments.yaml
 
+    echo "-------------------------------------------------------------------"
+    echo "Deleting project: $PROJECT"
+    echo "-------------------------------------------------------------------"
     cp $PROJECT_BASE_PATH/$PROJECT/delete.txt $PROJECT_BASE_PATH/delete.yaml 
-    export NEW_CLI=1
-    export DT_BASEURL=$DT_BASEURL && export DT_API_TOKEN=$DT_API_TOKEN && ./monaco-binary deploy -v --environments $ENVIONMENT_FILE --project $PROJECT $PROJECT_BASE_PATH
+    export NEW_CLI=1 && export DT_BASEURL=$DT_BASEURL && export DT_API_TOKEN=$DT_API_TOKEN && ./monaco deploy -v --environments $ENVIONMENT_FILE --project $PROJECT $PROJECT_BASE_PATH
     rm $PROJECT_BASE_PATH/delete.yaml 
 }
 
@@ -36,7 +38,11 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "*** Removing Dynatrace config ***"
     echo
 
-    run_monaco_delete
+    run_monaco_delete workshop
+    run_monaco_delete k8
+    run_monaco_delete services-vm
+    run_monaco_delete synthetics
+
     reset_custom_dynatrace_config
 
     echo ""

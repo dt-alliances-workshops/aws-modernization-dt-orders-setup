@@ -1,0 +1,63 @@
+{
+    "name": "{{ .name }}",
+    "frequencyMin": 1,
+    "enabled": true,
+    "type": "HTTP",
+    "createdFrom": "GUI",
+    "script": {
+      "version": "1.0",
+      "requests": [
+        {
+          "description": "azure.com",
+          "url": "{{ .host }}",
+          "method": "GET",
+          "validation": {
+            "rules": [
+              {
+                "value": ">=400",
+                "passIfFound": false,
+                "type": "httpStatusesList"
+              }
+            ],
+            "rulesChaining": "or"
+          },
+          "configuration": {
+            "acceptAnyCertificate": true,
+            "followRedirects": true
+          }
+        }
+      ]
+    },
+    "locations": [
+      "{{ .location }}"
+    ],
+    "anomalyDetection": {
+      "outageHandling": {
+        "globalOutage": true,
+        "localOutage": false,
+        "localOutagePolicy": {
+          "affectedLocations": 1,
+          "consecutiveRuns": 3
+        }
+      },
+      "loadingTimeThresholds": {
+        "enabled": false,
+        "thresholds": [
+          {
+            "type": "TOTAL",
+            "valueMs": 0
+          }
+        ]
+      }
+    },
+    "tags": [],
+    "managementZones": [],
+    "automaticallyAssignedApps": [],
+    "manuallyAssignedApps": [],
+    "requests": [
+      {
+        "name": "azure.com",
+        "sequenceNumber": 1
+      }
+    ]
+  }

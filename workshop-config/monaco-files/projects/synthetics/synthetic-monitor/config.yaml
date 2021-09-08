@@ -1,0 +1,19 @@
+config: 
+  - site1: "availability.json"
+  - site2: "availability.json"
+  - site3: "availability.json"
+
+site1:
+  - name: "Demo Availability Site 1"
+  - location: "GEOLOCATION-0DF9A0E1095A5A62"
+  - host: "https://www.dynatrace.com/"
+
+site2:
+  - name: "Demo Availability Site 2"
+  - location: "GEOLOCATION-0DF9A0E1095A5A62"
+  - host: "https://support.dynatrace.com"
+
+site3:
+  - name: "Demo Availability Site 3"
+  - location: "GEOLOCATION-0DF9A0E1095A5A62"
+  - host: "https://university.dynatrace.com/"
