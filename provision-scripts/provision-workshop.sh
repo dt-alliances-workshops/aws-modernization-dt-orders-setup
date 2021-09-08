@@ -54,7 +54,6 @@ setup_workshop_config()
 
 add_aws_keypair()
 {
-
   echo ""
   echo "-----------------------------------------------------------------------------------"
   echo "Adding AWS KeyPair $AWS_KEYPAIR_NAME"

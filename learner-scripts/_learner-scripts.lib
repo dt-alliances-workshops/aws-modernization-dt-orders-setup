@@ -119,6 +119,7 @@ setServicesVersion() {
       sed -ie "s|version: .*$|version: \"$NEW_VERSION\"|" $MANIFEST_FILE
       echo
       kubectl -n staging apply -f $MANIFEST_FILE
+
     else
       getServicesPublicIP
       PUBLIC_IP=$PUBLIC_IP_SERVICES
