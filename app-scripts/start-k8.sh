@@ -34,9 +34,9 @@ echo "kubectl -n staging apply -f manifests/frontend.yml"
 echo "----------------------------------------------------------"
 kubectl -n staging apply -f manifests/frontend.yml
 
-echo "----------------------------------------------------------"
-echo "kubectl -n staging apply -f manifests/browser-traffic.yml"
-echo "----------------------------------------------------------"
+#echo "----------------------------------------------------------"
+#echo "kubectl -n staging apply -f manifests/browser-traffic.yml"
+#echo "----------------------------------------------------------"
 #kubectl -n staging apply -f manifests/browser-traffic.yml
 
 echo "----------------------------------------------------------"
