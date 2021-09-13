@@ -117,7 +117,7 @@ setServicesVersion() {
       echo "Updating $MANIFEST_FILE"
       echo "Setting version to $NEW_VERSION"
       sed -ie "s|version: .*$|version: \"$NEW_VERSION\"|" $MANIFEST_FILE
-      #sed -ie "s|image: dtdemos/dt-orders-order-service:.*$|image: dtdemos/dt-orders-order-service:$NEW_VERSION|" $MANIFEST_FILE
+      sed -ie "s|image: dtdemos/dt-orders-order-service:.*$|image: dtdemos/dt-orders-order-service:$NEW_VERSION|" $MANIFEST_FILE
       
       echo
       kubectl -n staging apply -f $MANIFEST_FILE
