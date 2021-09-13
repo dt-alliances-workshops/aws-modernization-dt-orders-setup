@@ -65,7 +65,7 @@ showAppUrls() {
   fi
   if ! [ -z $PUBLIC_IP_k8 ]; then
     echo "K8"
-    echo "https://$PUBLIC_IP_k8"
+    echo "http://$PUBLIC_IP_k8"
     echo ""
   fi
   echo ""
