@@ -54,6 +54,16 @@ delete_stack()
   echo ""
 }
 
+cleanup_workshop_config()
+{
+    # this scripts will add workshop config like tags, dashboard, MZ
+    # need to change directories so that the generated monaco files
+    # are in the right folder
+    cd ../workshop-config
+    ./cleanup-workshop-config.sh Y
+    cd ../provision-scripts
+}
+
 #*********************************
 
 echo "==================================================================="
@@ -72,6 +82,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "Starting: $(date)"
   echo "==================================================================================="
 
+  cleanup_workshop_config
   delete_keypair $AWS_KEYPAIR_NAME
   delete_stack
 
