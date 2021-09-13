@@ -41,7 +41,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     run_monaco_delete workshop
     run_monaco_delete k8
     run_monaco_delete services-vm
-    run_monaco_delete synthetics
+    #run_monaco_delete synthetics  # if add this, need to adjust token permission instructions
 
     reset_custom_dynatrace_config
 
