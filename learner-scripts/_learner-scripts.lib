@@ -52,7 +52,7 @@ showAppUrls() {
     echo "http://$PUBLIC_IP_MONOLITH"
     echo ""
     echo "To SSH to host use:"
-    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
+    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/$RESOURCE_PREFIX-dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
     echo ""
   fi
   if ! [[ $PUBLIC_IP_SERVICES = "null" ]]; then
@@ -60,7 +60,7 @@ showAppUrls() {
     echo "http://$PUBLIC_IP_SERVICES"
     echo ""
     echo "To SSH to host use:"
-    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
+    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/$RESOURCE_PREFIX-dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
     echo 
   fi
   if ! [ -z $PUBLIC_IP_k8 ]; then

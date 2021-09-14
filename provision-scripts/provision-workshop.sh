@@ -19,7 +19,7 @@ AWS_REGION=$(cat $CREDS_FILE | jq -r '.AWS_REGION')
 
 AWS_KEYPAIR_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
 STACK_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
-LOCAL_PEM_FILE="../gen/dynatrace-modernize-workshop.pem"
+LOCAL_PEM_FILE="../gen/$RESOURCE_PREFIX-dynatrace-modernize-workshop.pem"
 
 create_stack() 
 {
