@@ -21,6 +21,7 @@ setup_monolith() {
     apt-get install -y docker-ce docker-ce-cli containerd.io
     apt-get install -y jq
     apt install -y docker-compose
+    sleep 30
 
     echo "----------------------------------------------------"
     echo "Start Monolith App"
@@ -40,7 +41,8 @@ setup_services() {
     apt-get install -y docker-ce docker-ce-cli containerd.io
     apt-get install -y jq
     apt install -y docker-compose
-  
+    sleep 30
+
     echo "----------------------------------------------------"
     echo "Start Services App"
     echo "----------------------------------------------------"
