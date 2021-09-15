@@ -15,7 +15,9 @@ fi
 
 getk8FrontEndPublicIP() {
   echo "Retrieving $CLUSTER_NAME frontend Public IP"
-  PUBLIC_IP_k8=$(kubectl -n staging get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+  if [ -x "$(command -v kubectl)" ]; then
+    PUBLIC_IP_k8=$(kubectl -n staging get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+  fi
 }
 
 getMonolithPublicIP() {
