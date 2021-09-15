@@ -10,10 +10,6 @@ services:
       - MONOLITH=true
       - DT_CUSTOM_PROP=project=dt-orders stage=production service=frontend owner=app-team-2 backend=monolith
       - DT_CLUSTER_ID=monolith-frontend
-      - DT_APPLICATION_ENVIRONMENT=production
-      - DT_APPLICATION_NAME=dt-orders-frontend
-      - DT_APPLICATION_RELEASE_VERSION=1
-      - DT_RELEASE_BUILD_VERSION=1
   backend-service:
     hostname: backend
     image: dtdemos/dt-orders-backend-monolith:1
@@ -26,10 +22,6 @@ services:
       - CATALOG_SERVICE_PORT=8080
       - DT_CUSTOM_PROP=project=dt-orders stage=production service=backend owner=app-team-2
       - DT_CLUSTER_ID=monolith-backend
-      - DT_APPLICATION_ENVIRONMENT=production
-      - DT_APPLICATION_NAME=dt-orders-backend
-      - DT_APPLICATION_RELEASE_VERSION=1
-      - DT_RELEASE_BUILD_VERSION=1
   order-load:
     hostname: load
     image: dtdemos/dt-orders-load:1

@@ -11,9 +11,6 @@ services:
       - ORDER_URL=http://172.17.0.1:8183
       - DT_CUSTOM_PROP=project=dt-orders stage=dev service=frontend owner=app-team-2 backend=services
       - DT_CLUSTER_ID=dev-frontend
-      - DT_APPLICATION_ENVIRONMENT=dev
-      - DT_APPLICATION_NAME=dt-orders-frontend
-      - DT_APPLICATION_RELEASE_VERSION=1
   customer-service:
     hostname: customer
     image: dtdemos/dt-orders-customer-service:1
@@ -22,9 +19,6 @@ services:
     environment:
       - DT_CUSTOM_PROP=project=dt-orders stage=dev service=customer-service owner=app-team-1
       - DT_CLUSTER_ID=dev-customer-service
-      - DT_APPLICATION_ENVIRONMENT=dev
-      - DT_APPLICATION_NAME=dt-orders-customer-service
-      - DT_APPLICATION_RELEASE_VERSION=1
   catalog-service:
     hostname: catalog
     image: dtdemos/dt-orders-catalog-service:1
@@ -33,9 +27,6 @@ services:
     environment:
       - DT_CUSTOM_PROP=project=dt-orders stage=dev service=catalog-service owner=app-team-1
       - DT_CLUSTER_ID=dev-catalog-service
-      - DT_APPLICATION_ENVIRONMENT=dev
-      - DT_APPLICATION_NAME=dt-orders-catalog-service
-      - DT_APPLICATION_RELEASE_VERSION=1
   order-service:
     hostname: order
     image: dtdemos/dt-orders-order-service:1
@@ -47,10 +38,6 @@ services:
       - CATALOG_SERVICE_DOMAIN=172.17.0.1
       - CATALOG_SERVICE_PORT=8182
       - DT_CUSTOM_PROP=project=dt-orders stage=dev service=order-service owner=app-team-1
-      - DT_CLUSTER_ID=dev-order-service
-      - DT_APPLICATION_ENVIRONMENT=dev
-      - DT_APPLICATION_NAME=dt-orders-order-service
-      - DT_APPLICATION_RELEASE_VERSION=1
   order-load:
     hostname: load
     image: dtdemos/dt-orders-load:1
