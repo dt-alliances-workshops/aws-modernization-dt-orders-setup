@@ -26,3 +26,22 @@ Please ensure we have all the necessary information to effectively respond to yo
 # Maintainer
 
 [Rob Jahn](https://www.linkedin.com/in/robjahn/) -- Email me @ rob.jahn@dynatrace.com with questions or more details.
+
+# Tags
+
+For meaningful changes to the scripts, git tags should be used.  Here is quick guide on tags.
+
+```
+# list tags with descriptions
+git tag -n
+
+# add tag
+git tag -a [tagname] -m "description"
+git push origin [tagname]
+
+# checkout a tag
+git checkout [tagname]
+
+# checkout back to main branch
+git checkout main
+```
