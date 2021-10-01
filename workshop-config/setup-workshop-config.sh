@@ -24,11 +24,7 @@ download_monaco() {
 }
 
 run_monaco() {
-    if [ -z "$1" ]; then
-        MONACO_PROJECT=workshop
-    else
-        MONACO_PROJECT=$1
-    fi
+    MONACO_PROJECT=$1
 
     echo "Running monaco for project = $MONACO_PROJECT"
     echo "monaco deploy -v --environments $MONACO_ENVIONMENT_FILE --project $MONACO_PROJECT $MONACO_PROJECT_BASE_PATH"
@@ -55,13 +51,13 @@ echo "--------------------------------------------------------------------------
 echo ""
 
 case "$SETUP_TYPE" in
-    "k8") 
-        echo "Setup type = k8"
+    "cluster") 
+        echo "Setup type = cluster"
         download_monaco
-        run_monaco k8
+        run_monaco cluster
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
         sleep 10
-        run_monaco k8
+        run_monaco cluster
         ;;
     "services-vm") 
         echo "Setup type = services-vm"
@@ -85,7 +81,7 @@ case "$SETUP_TYPE" in
         echo ""
         echo "-----------------------------------------------------------------------------------"
         echo "ERROR: Missing or invalid SETUP_TYPE argument"
-        echo "Valid values are: monolith-vm, services-vm, k8, synthetics"
+        echo "Valid values are: monolith-vm, services-vm, cluster, synthetics"
         echo ""
         exit 1
         ;;
