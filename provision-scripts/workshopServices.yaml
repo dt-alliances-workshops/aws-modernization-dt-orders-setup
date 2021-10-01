@@ -1,0 +1,162 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation Template for the AWS Modernization workshop with Dynatrace.
+  You will be billed for the AWS resources used if you create a stack from this template.
+Parameters:
+  DynatraceBaseURL:
+    Description: Your Dynatrace Base URL (example https://ABC.live.dynatrace.com)
+    Type: String
+  DynatracePaasToken:
+    Description: Your Dynatrace PaaS token
+    Type: String
+  KeyPairName:
+    Description: KeyPair name for the EC2 instance
+    Type: String
+    Default: ee-default-keypair
+  ResourcePrefix:
+    Description: Optional value to prefix resource names
+    Type: String
+Conditions:
+  HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, '']]
+Mappings:
+  RegionMap: 
+    us-east-1: 
+      AMI: ami-085925f297f89fce1
+    us-east-2: 
+      AMI: ami-07c1207a9d40bc3bd
+    us-west-1: 
+      AMI: ami-0f56279347d2fa43e
+    us-west-2: 
+      AMI: ami-003634241a8fcdec0
+    ap-southeast-1:
+      AMI: ami-0f7719e8b7ba25c61
+    ap-southeast-2:
+      AMI: ami-04fcc97b5f6edcd89
+    eu-central-1:
+      AMI: ami-0e342d72b12109f91
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'VPC'
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref 'VPC'
+      InternetGatewayId: !Ref 'InternetGateway'
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'VPC'
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  Route:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'InternetGateway'
+  SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'Subnet'
+      RouteTableId: !Ref 'RouteTable'
+  DTOrdersInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access
+      VpcId: !Ref 'VPC'
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: tcp
+          FromPort: '8080'
+          ToPort: '8080'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: '0.0.0.0/0'
+
+  DTOrdersInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: AttachGateway
+    Properties:
+      InstanceType: m5.xlarge
+      KeyName: !Ref 'KeyPairName'
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+        - Key: Purpose
+          Value: dynatrace-modernize-workshop
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: '16'
+            DeleteOnTermination: 'true'
+            Encrypted: 'false'
+      UserData: !Base64
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash\n"
+            - "DT_BASEURL="
+            - !Ref DynatraceBaseURL
+            - "\n"
+            - "if [ \"${DT_BASEURL: -1}\" == \"/\" ]; then"
+            - " DT_BASEURL=\"$(echo ${DT_BASEURL%?})\"; "
+            - "fi\n"
+            - wget -O Dynatrace-OneAgent.sh "
+            - ${DT_BASEURL}/api/v1/deployment/installer/agent/unix/default/latest?Api-Token=
+            - !Ref 'DynatracePaasToken'
+            - "&arch=x86&flavor=default\"\n"
+            - "/bin/sh Dynatrace-OneAgent.sh"
+            - " --set-app-log-content-access=true"
+            - " --set-infra-only=false"
+            - " --set-host-name="
+            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+            - " --set-host-group="
+            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+            - "\n"            
+            - "sudo apt-get update\n"
+            - "sudo apt-get install -y git\n"
+            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"
+            - "cd /home/ubuntu/aws-modernization-dt-orders-setup\n"
+            - "sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-services > /tmp/cloud-init-services.log\n"
+      NetworkInterfaces:
+        - GroupSet:
+            - !Ref 'DTOrdersInstanceSecurityGroup'
+          AssociatePublicIpAddress: 'true'
+          DeviceIndex: '0'
+          DeleteOnTermination: 'true'
+          SubnetId: !Ref 'Subnet'
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value: !Ref 'DTOrdersInstance'
