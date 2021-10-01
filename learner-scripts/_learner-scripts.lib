@@ -7,7 +7,9 @@ then
     DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
     DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
     RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
-    CLUSTER_NAME="dynatrace-workshop-cluster"
+    HOSTNAME_SERVICES=$(cat $CREDS_FILE | jq -r '.HOSTNAME_SERVICES')
+    HOSTNAME_MONOLITH=$(cat $CREDS_FILE | jq -r '.HOSTNAME_MONOLITH')
+    CLUSTER_NAME=$(cat $CREDS_FILE | jq -r '.CLUSTER_NAME')
 else 
   echo "ABORT: CREDS_FILE: $CREDS_FILE not found"
   exit 1
@@ -21,20 +23,16 @@ getk8FrontEndPublicIP() {
 }
 
 getMonolithPublicIP() {
-  HOSTNAME_MONOLITH="$RESOURCE_PREFIX-dt-orders-monolith"
   echo "Retrieving $HOSTNAME_MONOLITH Public IP"
   PUBLIC_IP_MONOLITH="$(aws ec2 describe-instances \
     --filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values=$HOSTNAME_MONOLITH" \
-    --region $AWS_REGION \
     | jq -r '.Reservations[0].Instances[0].PublicIpAddress' )"
 }
 
 getServicesPublicIP() {
-  HOSTNAME_SERVICES="$RESOURCE_PREFIX-dt-orders-services"
   echo "Retrieving $HOSTNAME_SERVICES Public IP"
   PUBLIC_IP_SERVICES="$(aws ec2 describe-instances \
     --filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values=$HOSTNAME_SERVICES" \
-    --region $AWS_REGION \
     | jq -r '.Reservations[0].Instances[0].PublicIpAddress' )"
 }
 

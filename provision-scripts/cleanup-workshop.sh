@@ -6,13 +6,10 @@ if ! [ -f "$CREDS_FILE" ]; then
   exit 1
 fi
 
-AWS_PROFILE=$(cat $CREDS_FILE | jq -r '.AWS_PROFILE')
-AWS_REGION=$(cat $CREDS_FILE | jq -r '.AWS_REGION')
 AWS_KEYPAIR_NAME=$(cat $CREDS_FILE | jq -r '.AWS_KEYPAIR_NAME')
 RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
 
 AWS_KEYPAIR_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
-STACK_NAME="$RESOURCE_PREFIX-dynatrace-modernize-workshop"
 
 delete_keypair()
 {
@@ -23,35 +20,17 @@ delete_keypair()
   echo "-----------------------------------------------------------------------------------"
 
   # delete the keypair needed for ec2 if it exists
-  KEY=$(aws ec2 describe-key-pairs \
-    --region $AWS_REGION | grep $AWS_KEYPAIR_NAME)
+  KEY=$(aws ec2 describe-key-pairs | grep $AWS_KEYPAIR_NAME)
   if [ -z "$KEY" ]; then
     echo ""
     echo "Skipping, delete key-pair $KEYPAIR_NAME since it does not exists"
   else
     echo "Deleting $KEYPAIR_NAME ($INSTANCE_ID)"
     aws ec2 delete-key-pair \
-      --key-name $KEYPAIR_NAME \
-      --region $AWS_REGION
+      --key-name $KEYPAIR_NAME
   fi
 
   sudo rm -f ../gen/*.pem
-}
-
-delete_stack()
-{
-  echo ""
-  echo "-----------------------------------------------------------------------------------"
-  echo "Reqesting CloudFormation Delete Stack $STACK_NAME"
-  echo "-----------------------------------------------------------------------------------"
-
-  aws cloudformation delete-stack \
-      --stack-name $STACK_NAME \
-      --region $AWS_REGION
-
-  echo ""
-  echo "Monitor CloudFormation stack status @ https://console.aws.amazon.com/cloudformation/home"
-  echo ""
 }
 
 cleanup_workshop_config()
@@ -84,7 +63,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   cleanup_workshop_config
   delete_keypair $AWS_KEYPAIR_NAME
-  delete_stack
 
   echo "==================================================================================="
   echo "Cleaning Up AWS workshop resources COMPLETE"
