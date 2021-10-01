@@ -25,7 +25,7 @@ reset_custom_dynatrace_config() {
 # Just pass in an argument ./cleanup-workshop-config.sh Y
 if [ -z $1 ]; then
     echo "==================================================================="
-    echo "About to Delete Workshop configuration on $DT_BASEURL"
+    echo "About to Delete Workshop Dynatrace configuration on $DT_BASEURL"
     echo "==================================================================="
     read -p "Proceed? (y/n) : " REPLY;
 else

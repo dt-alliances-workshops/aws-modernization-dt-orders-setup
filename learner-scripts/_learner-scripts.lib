@@ -6,7 +6,6 @@ if [ -f "$CREDS_FILE" ]
 then
     DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
     DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
-    RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
     HOSTNAME_SERVICES=$(cat $CREDS_FILE | jq -r '.HOSTNAME_SERVICES')
     HOSTNAME_MONOLITH=$(cat $CREDS_FILE | jq -r '.HOSTNAME_MONOLITH')
     CLUSTER_NAME=$(cat $CREDS_FILE | jq -r '.CLUSTER_NAME')
@@ -51,17 +50,11 @@ showAppUrls() {
     echo "MONOLITH"
     echo "http://$PUBLIC_IP_MONOLITH"
     echo ""
-    echo "To SSH to host use:"
-    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/$RESOURCE_PREFIX-dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
-    echo ""
   fi
   if ! [[ $PUBLIC_IP_SERVICES = "null" ]]; then
     echo "SERVICES"
     echo "http://$PUBLIC_IP_SERVICES"
     echo ""
-    echo "To SSH to host use:"
-    echo "ssh -i \"~/aws-modernization-dt-orders-setup/gen/$RESOURCE_PREFIX-dynatrace-modernize-workshop.pem\" ubuntu@$PUBLIC_IP_MONOLITH"
-    echo 
   fi
   if ! [ -z $PUBLIC_IP_k8 ]; then
     echo "K8"

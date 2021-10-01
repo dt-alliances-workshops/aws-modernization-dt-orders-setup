@@ -72,14 +72,22 @@ case "$SETUP_TYPE" in
         echo "Setup type = synthetics"
         run_monaco synthetics
         ;;
-    *)
-        echo "Setup type = base workshop"
+    "monolith-vm")
+        echo "Setup type = monolith-vm"
         download_monaco
         run_monaco
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
         sleep 10
         run_monaco
         run_custom_dynatrace_config
+        ;;
+    *)
+        echo ""
+        echo "-----------------------------------------------------------------------------------"
+        echo "ERROR: Missing or invalid SETUP_TYPE argument"
+        echo "Valid values are: monolith-vm, services-vm, k8, synthetics"
+        echo ""
+        exit 1
         ;;
 esac
  

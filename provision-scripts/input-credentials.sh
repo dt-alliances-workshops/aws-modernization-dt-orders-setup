@@ -10,7 +10,6 @@ if [ -f "$CREDS_FILE" ]
 then
     DT_BASEURL=$(cat $CREDS_FILE | jq -r '.DT_BASEURL')
     DT_API_TOKEN=$(cat $CREDS_FILE | jq -r '.DT_API_TOKEN')
-    RESOURCE_PREFIX=$(cat $CREDS_FILE | jq -r '.RESOURCE_PREFIX')
     HOSTNAME_MONOLITH=$(cat $CREDS_FILE | jq -r '.HOSTNAME_MONOLITH')
     HOSTNAME_SERVICES=$(cat $CREDS_FILE | jq -r '.HOSTNAME_SERVICES')
     CLUSTER_NAME=$(cat $CREDS_FILE | jq -r '.CLUSTER_NAME')
@@ -26,8 +25,6 @@ echo "==================================================================="
 echo -e "${YLW}Please enter your Dynatrace credentials as requested below: ${NC}"
 echo "Press <enter> to keep the current value"
 echo "==================================================================="
-echo "Your last name - Max 10 characters:"
-read -p "                         (current: $RESOURCE_PREFIX) : " RESOURCE_PREFIX_NEW
 echo    "Dynatrace Base URL - example https://ABC.live.dynatrace.com"
 read -p "                         (current: $DT_BASEURL) : " DT_BASEURL_NEW
 read -p "Dynatrace API Token      (current: $DT_API_TOKEN) : " DT_API_TOKEN_NEW
@@ -41,7 +38,6 @@ echo "==================================================================="
 echo ""
 
 # set value to new input or default to current value
-RESOURCE_PREFIX=${RESOURCE_PREFIX_NEW:-$RESOURCE_PREFIX}
 DT_BASEURL=${DT_BASEURL_NEW:-$DT_BASEURL}
 DT_API_TOKEN=${DT_API_TOKEN_NEW:-$DT_API_TOKEN}
 HOSTNAME_MONOLITH=${HOSTNAME_MONOLITH_NEW:-$HOSTNAME_MONOLITH}
@@ -56,7 +52,6 @@ fi
 
 echo -e "Please confirm all are correct:"
 echo "--------------------------------------------------"
-echo "Your last name           : $RESOURCE_PREFIX"
 echo "Dynatrace Base URL       : $DT_BASEURL"
 echo "Dynatrace API Token      : $DT_API_TOKEN"
 echo "--------------------------------------------------"
@@ -74,7 +69,6 @@ rm $CREDS_FILE 2> /dev/null
 
 # create new file from the template
 cat $CREDS_TEMPLATE_FILE | \
-  sed 's~RESOURCE_PREFIX_PLACEHOLDER~'"$RESOURCE_PREFIX"'~' | \
   sed 's~DT_BASEURL_PLACEHOLDER~'"$DT_BASEURL"'~' | \
   sed 's~HOSTNAME_MONOLITH_PLACEHOLDER~'"$HOSTNAME_MONOLITH"'~' | \
   sed 's~HOSTNAME_SERVICES_PLACEHOLDER~'"$HOSTNAME_SERVICES"'~' | \
