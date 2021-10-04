@@ -26,6 +26,11 @@ download_monaco() {
 run_monaco() {
     MONACO_PROJECT=$1
 
+    if [ -z $MONACO_PROJECT ]; then
+        echo "ERROR: run_monaco() Missing MONACO_PROJECT argument"
+        exit 1
+    fi
+
     echo "Running monaco for project = $MONACO_PROJECT"
     echo "monaco deploy -v --environments $MONACO_ENVIONMENT_FILE --project $MONACO_PROJECT $MONACO_PROJECT_BASE_PATH"
 
@@ -71,10 +76,10 @@ case "$SETUP_TYPE" in
     "monolith-vm")
         echo "Setup type = monolith-vm"
         download_monaco
-        run_monaco
+        run_monaco monolith-vm
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
         sleep 10
-        run_monaco
+        run_monaco monolith-vm
         run_custom_dynatrace_config
         ;;
     *)
