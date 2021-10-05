@@ -3,4 +3,4 @@ config:
 
 monolith-slo:
   - name: "DT-Orders Monolith Error Rate"
-  - mzname: "workshop/management-zone/dt-orders-monolith.name"
+  - mzname: "monolith-vm/management-zone/dt-orders-monolith.name"
