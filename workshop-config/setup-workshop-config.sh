@@ -60,7 +60,9 @@ case "$SETUP_TYPE" in
         echo "Setup type = cluster"
         download_monaco
         run_monaco cluster
+        echo "-----------------------------------------------------------------------------------"
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
+        echo "-----------------------------------------------------------------------------------"
         sleep 10
         run_monaco cluster
         ;;
@@ -68,6 +70,12 @@ case "$SETUP_TYPE" in
         echo "Setup type = services-vm"
         download_monaco
         run_monaco services-vm
+        echo "-----------------------------------------------------------------------------------"
+        echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
+        echo "-----------------------------------------------------------------------------------"
+        sleep 10
+        run_monaco monolith-vm
+        run_custom_dynatrace_config
         ;;
     "synthetics") 
         echo "Setup type = synthetics"
@@ -77,7 +85,9 @@ case "$SETUP_TYPE" in
         echo "Setup type = monolith-vm"
         download_monaco
         run_monaco monolith-vm
+        echo "-----------------------------------------------------------------------------------"
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
+        echo "-----------------------------------------------------------------------------------"
         sleep 10
         run_monaco monolith-vm
         run_custom_dynatrace_config
