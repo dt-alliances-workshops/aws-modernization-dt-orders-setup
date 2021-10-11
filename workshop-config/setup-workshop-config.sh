@@ -74,7 +74,7 @@ case "$SETUP_TYPE" in
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
         echo "-----------------------------------------------------------------------------------"
         sleep 10
-        run_monaco monolith-vm
+        run_monaco services-vm
         run_custom_dynatrace_config
         ;;
     "synthetics") 
