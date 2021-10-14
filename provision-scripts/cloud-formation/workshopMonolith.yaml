@@ -15,24 +15,23 @@ Parameters:
   ResourcePrefix:
     Description: Optional value to prefix resource names
     Type: String
-Conditions:
-  HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, '']]
+    Default: ""
 Mappings:
   RegionMap: 
     us-east-1: 
-      AMI: ami-085925f297f89fce1
+      AMI: ami-09e67e426f25ce0d7
     us-east-2: 
-      AMI: ami-07c1207a9d40bc3bd
-    us-west-1: 
-      AMI: ami-0f56279347d2fa43e
+      AMI: ami-00399ec92321828f5
+    us-west-1:
+      AMI: ami-0d382e80be7ffdae5
     us-west-2: 
-      AMI: ami-003634241a8fcdec0
+      AMI: ami-03d5c68bab01f3496
     ap-southeast-1:
-      AMI: ami-0f7719e8b7ba25c61
+      AMI: ami-0d058fe428540cd89
     ap-southeast-2:
-      AMI: ami-04fcc97b5f6edcd89
-    eu-central-1:
-      AMI: ami-0e342d72b12109f91
+      AMI: ami-0567f647e75c7bc05
+Conditions:
+  HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, ""]]
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -40,7 +39,7 @@ Resources:
       CidrBlock: 10.0.0.0/24
       Tags:
         - Key: Name
-          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
   Subnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -49,13 +48,13 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
         - Key: Application
           Value: !Ref 'AWS::StackId'
   AttachGateway:
@@ -69,7 +68,7 @@ Resources:
       VpcId: !Ref 'VPC'
       Tags:
         - Key: Name
-          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
         - Key: Application
           Value: !Ref 'AWS::StackId'
   Route:
@@ -107,19 +106,19 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn: AttachGateway
     Properties:
-      InstanceType: m5.xlarge
+      InstanceType: m4.xlarge
       KeyName: !Ref 'KeyPairName'
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
       Tags:
         - Key: Name
-          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
         - Key: Purpose
           Value: dynatrace-modernize-workshop
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeType: gp2
-            VolumeSize: '16'
+            VolumeSize: '20'
             DeleteOnTermination: 'true'
             Encrypted: 'false'
       UserData: !Base64
@@ -140,15 +139,15 @@ Resources:
             - " --set-app-log-content-access=true"
             - " --set-infra-only=false"
             - " --set-host-name="
-            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
             - " --set-host-group="
-            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-services", dt-orders-services]
+            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
             - "\n"            
             - "sudo apt-get update\n"
             - "sudo apt-get install -y git\n"
-            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"
+            - "git clone --branch add-stg-vm https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"
             - "cd /home/ubuntu/aws-modernization-dt-orders-setup\n"
-            - "sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-services > /tmp/cloud-init-services.log\n"
+            - "sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-monolith > /tmp/cloud-init-services.log\n"
       NetworkInterfaces:
         - GroupSet:
             - !Ref 'DTOrdersInstanceSecurityGroup'
