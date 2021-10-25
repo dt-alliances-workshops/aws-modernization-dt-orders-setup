@@ -2,23 +2,36 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS CloudFormation Template for the AWS Modernization workshop with Dynatrace.
   You will be billed for the AWS resources used if you create a stack from this template.
 Parameters:
-  KeyName:
-    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
-    Type: AWS::EC2::KeyPair::KeyName
-    ConstraintDescription: must be the name of an existing EC2 KeyPair.
-  LastName:
-    Description: Your last name that will be used in tags and resource prefix
-    Type: String
   DynatraceBaseURL:
-    Description: Your Dynatrace Base URL (ex. https://ABC.live.dynatrace.com)
+    Description: Your Dynatrace Base URL (example https://ABC.live.dynatrace.com)
     Type: String
   DynatracePaasToken:
     Description: Your Dynatrace PaaS token
     Type: String
+  KeyPairName:
+    Description: KeyPair name for the EC2 instance
+    Type: String
+    Default: ee-default-keypair
+  ResourcePrefix:
+    Description: Optional value to prefix resource names
+    Type: String
+    Default: ""
 Mappings:
-  Common:
-    DTOrdersAmi:
-      Name: ami-003634241a8fcdec0
+  RegionMap: 
+    us-east-1: 
+      AMI: ami-09e67e426f25ce0d7
+    us-east-2: 
+      AMI: ami-00399ec92321828f5
+    us-west-1:
+      AMI: ami-0d382e80be7ffdae5
+    us-west-2: 
+      AMI: ami-03d5c68bab01f3496
+    ap-southeast-1:
+      AMI: ami-0d058fe428540cd89
+    ap-southeast-2:
+      AMI: ami-0567f647e75c7bc05
+Conditions:
+  HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, ""]]
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -26,10 +39,7 @@ Resources:
       CidrBlock: 10.0.0.0/24
       Tags:
         - Key: Name
-          Value: !Join
-            - ''
-            - - !Ref 'LastName'
-              - -dynatrace-modernize-workshop
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
   Subnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -38,19 +48,13 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Join
-            - ''
-            - - !Ref 'LastName'
-              - -dynatrace-modernize-workshop
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: !Join
-            - ''
-            - - !Ref 'LastName'
-              - -dynatrace-modernize-workshop
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
         - Key: Application
           Value: !Ref 'AWS::StackId'
   AttachGateway:
@@ -64,10 +68,7 @@ Resources:
       VpcId: !Ref 'VPC'
       Tags:
         - Key: Name
-          Value: !Join
-            - ''
-            - - !Ref 'LastName'
-              - -dynatrace-modernize-workshop
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
         - Key: Application
           Value: !Ref 'AWS::StackId'
   Route:
@@ -105,39 +106,43 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn: AttachGateway
     Properties:
-      InstanceType: t3.xlarge
-      KeyName: !Ref 'KeyName'
-      ImageId: !FindInMap
-        - Common
-        - DTOrdersAmi
-        - Name
+      InstanceType: m4.xlarge
+      KeyName: !Ref 'KeyPairName'
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
       Tags:
         - Key: Name
-          Value: !Join
-            - ''
-            - - !Ref 'LastName'
-              - -dt-orders-monolith
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
+        - Key: Purpose
+          Value: dynatrace-modernize-workshop
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeType: gp2
-            VolumeSize: '16'
+            VolumeSize: '20'
             DeleteOnTermination: 'true'
             Encrypted: 'false'
       UserData: !Base64
         Fn::Join:
           - ''
           - - "#!/bin/bash\n"
+            - "DT_BASEURL="
+            - !Ref DynatraceBaseURL
+            - "\n"
+            - "if [ \"${DT_BASEURL: -1}\" == \"/\" ]; then"
+            - " DT_BASEURL=\"$(echo ${DT_BASEURL%?})\"; "
+            - "fi\n"
             - wget -O Dynatrace-OneAgent.sh "
-            - !Ref 'DynatraceBaseURL'
-            - /api/v1/deployment/installer/agent/unix/default/latest?Api-Token=
+            - ${DT_BASEURL}/api/v1/deployment/installer/agent/unix/default/latest?Api-Token=
             - !Ref 'DynatracePaasToken'
             - "&arch=x86&flavor=default\"\n"
             - "/bin/sh Dynatrace-OneAgent.sh"
             - " --set-app-log-content-access=true"
             - " --set-infra-only=false"
-            - " --set-host-name=dt-orders-monolith"
-            - " --set-host-group=dt-orders-monolith\n"
+            - " --set-host-name="
+            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
+            - " --set-host-group="
+            - !If [HasResourcePrefix, !Sub "${ResourcePrefix}-dt-orders-monolith", dt-orders-monolith]
+            - "\n"            
             - "sudo apt-get update\n"
             - "sudo apt-get install -y git\n"
             - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"

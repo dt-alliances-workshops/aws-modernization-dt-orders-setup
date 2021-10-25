@@ -24,10 +24,11 @@ download_monaco() {
 }
 
 run_monaco() {
-    if [ -z "$1" ]; then
-        MONACO_PROJECT=workshop
-    else
-        MONACO_PROJECT=$1
+    MONACO_PROJECT=$1
+
+    if [ -z $MONACO_PROJECT ]; then
+        echo "ERROR: run_monaco() Missing MONACO_PROJECT argument"
+        exit 1
     fi
 
     echo "Running monaco for project = $MONACO_PROJECT"
@@ -55,31 +56,49 @@ echo "--------------------------------------------------------------------------
 echo ""
 
 case "$SETUP_TYPE" in
-    "k8") 
-        echo "Setup type = k8"
+    "cluster") 
+        echo "Setup type = cluster"
         download_monaco
-        run_monaco k8
+        run_monaco cluster
+        echo "-----------------------------------------------------------------------------------"
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
+        echo "-----------------------------------------------------------------------------------"
         sleep 10
-        run_monaco k8
+        run_monaco cluster
         ;;
     "services-vm") 
         echo "Setup type = services-vm"
         download_monaco
         run_monaco services-vm
+        echo "-----------------------------------------------------------------------------------"
+        echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
+        echo "-----------------------------------------------------------------------------------"
+        sleep 10
+        run_monaco services-vm
+        run_custom_dynatrace_config
         ;;
     "synthetics") 
         echo "Setup type = synthetics"
         run_monaco synthetics
         ;;
-    *)
-        echo "Setup type = base workshop"
+    "monolith-vm")
+        echo "Setup type = monolith-vm"
         download_monaco
-        run_monaco
+        run_monaco monolith-vm
+        echo "-----------------------------------------------------------------------------------"
         echo "Sometimes a timing issue with SLO creation, so will repeat in 10 seconds"
+        echo "-----------------------------------------------------------------------------------"
         sleep 10
-        run_monaco
+        run_monaco monolith-vm
         run_custom_dynatrace_config
+        ;;
+    *)
+        echo ""
+        echo "-----------------------------------------------------------------------------------"
+        echo "ERROR: Missing or invalid SETUP_TYPE argument"
+        echo "Valid values are: monolith-vm, services-vm, cluster, synthetics"
+        echo ""
+        exit 1
         ;;
 esac
  

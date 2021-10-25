@@ -3,5 +3,4 @@ delete:
   - "auto-tag/service"
   - "auto-tag/stage"
   - "management-zone/dt-orders-monolith"
-  - "azure-credentials/azure-modernize-workshop"
   - "slo/DT-Orders Monolith Error Rate"

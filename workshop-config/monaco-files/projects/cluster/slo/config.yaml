@@ -3,4 +3,4 @@ config:
 
 k8-slo:
   - name: "DT-Orders K8 Error Rate"
-  - mzname: "k8/management-zone/dt-orders-k8.name"
+  - mzname: "cluster/management-zone/dt-orders-k8.name"

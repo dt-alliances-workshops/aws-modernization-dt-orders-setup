@@ -25,7 +25,7 @@ reset_custom_dynatrace_config() {
 # Just pass in an argument ./cleanup-workshop-config.sh Y
 if [ -z $1 ]; then
     echo "==================================================================="
-    echo "About to Delete Workshop configuration on $DT_BASEURL"
+    echo "About to Delete Workshop Dynatrace configuration on $DT_BASEURL"
     echo "==================================================================="
     read -p "Proceed? (y/n) : " REPLY;
 else
@@ -38,8 +38,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "*** Removing Dynatrace config ***"
     echo
 
-    run_monaco_delete workshop
-    run_monaco_delete k8
+    run_monaco_delete monolith-vm
+    run_monaco_delete cluster
     run_monaco_delete services-vm
     #run_monaco_delete synthetics  # if add this, need to adjust token permission instructions
 
