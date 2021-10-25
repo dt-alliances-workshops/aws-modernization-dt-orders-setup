@@ -145,7 +145,7 @@ Resources:
             - "\n"            
             - "sudo apt-get update\n"
             - "sudo apt-get install -y git\n"
-            - "git clone --branch add-stg-vm https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"
+            - "git clone https://github.com/dt-alliances-workshops/aws-modernization-dt-orders-setup.git /home/ubuntu/aws-modernization-dt-orders-setup\n"
             - "cd /home/ubuntu/aws-modernization-dt-orders-setup\n"
             - "sudo /home/ubuntu/aws-modernization-dt-orders-setup/provision-scripts/setup-host.sh dt-orders-monolith > /tmp/cloud-init-services.log\n"
       NetworkInterfaces:
