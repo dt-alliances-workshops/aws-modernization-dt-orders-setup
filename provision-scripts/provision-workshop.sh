@@ -46,14 +46,14 @@ create_aws_resources() {
   echo "Create AWS resource: monolith-vm"
   aws cloudformation create-stack \
       --stack-name monolith-vm \
-      --template-body file://cloud-formation/workshopMonolith.json \
+      --template-body file://cloud-formation/workshopMonolith.yaml \
       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN
 
   echo "Create AWS resource: services-vm"
   aws cloudformation create-stack \
       --stack-name services-vm \
-      --template-body file://cloud-formation/workshopServices.json \
+      --template-body file://cloud-formation/workshopServices.yaml \
       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN
 
