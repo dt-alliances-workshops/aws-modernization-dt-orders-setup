@@ -15,7 +15,7 @@ if [ -z $DT_API_TOKEN ]; then
 fi
 
 if [ -z $KEYPAIR_NAME ]; then
-  KEYPAIR_NAME=ee-default-keypairs
+  KEYPAIR_NAME=ee-default-keypair
 fi
 
 make_creds_file() {
