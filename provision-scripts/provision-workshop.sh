@@ -2,6 +2,7 @@
 
 DT_BASEURL=$1
 DT_API_TOKEN=$2
+KEYPAIR_NAME=$3   # can leave blank it will default
 
 if [ -z $DT_BASEURL ]; then
   echo "ABORT: missing DT_BASEURL parameter"
@@ -11,6 +12,10 @@ fi
 if [ -z $DT_API_TOKEN ]; then
   echo "ABORT: missing DT_API_TOKEN parameter"
   exit 1
+fi
+
+if [ -z $KEYPAIR_NAME ]; then
+  KEYPAIR_NAME=ee-default-keypairs
 fi
 
 make_creds_file() {
@@ -42,8 +47,6 @@ setup_workshop_config() {
 }
 
 create_aws_resources() {
-  
-  KEYPAIR_NAME=ee-default-keypairs
 
   echo "Create AWS resource: monolith-vm"
   aws cloudformation create-stack \
