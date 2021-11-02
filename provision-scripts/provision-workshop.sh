@@ -2,8 +2,10 @@
 
 DT_BASEURL=$1
 DT_API_TOKEN=$2
-SETUP_TYPE=$3     # optional argument. if leave blank it will default
-KEYPAIR_NAME=$4   # optional argument. if leave blank it will default
+SETUP_TYPE=$3     # optional argument. values are: all, monolith-vm, services-vm.  default is all
+                  # this allows to just recreate the cloudformation stack is one VM stack fails
+KEYPAIR_NAME=$4   # optional argument. if leave blank it will default to ee-default-keypair
+                  # this allows to override for testing outside of AWS event engine account
 
 if [ -z $DT_BASEURL ]; then
   echo "ABORT: missing DT_BASEURL parameter"
@@ -16,7 +18,7 @@ if [ -z $DT_API_TOKEN ]; then
 fi
 
 if [ -z $SETUP_TYPE ]; then
-  SETUP_TYPE=ALL
+  SETUP_TYPE=all
 fi
 
 if [ -z $KEYPAIR_NAME ]; then
