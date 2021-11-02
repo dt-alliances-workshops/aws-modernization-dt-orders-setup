@@ -2,7 +2,8 @@
 
 DT_BASEURL=$1
 DT_API_TOKEN=$2
-KEYPAIR_NAME=$3   # can leave blank it will default
+SETUP_TYPE=$3     # optional argument. if leave blank it will default
+KEYPAIR_NAME=$4   # optional argument. if leave blank it will default
 
 if [ -z $DT_BASEURL ]; then
   echo "ABORT: missing DT_BASEURL parameter"
@@ -12,6 +13,10 @@ fi
 if [ -z $DT_API_TOKEN ]; then
   echo "ABORT: missing DT_API_TOKEN parameter"
   exit 1
+fi
+
+if [ -z $SETUP_TYPE ]; then
+  SETUP_TYPE=ALL
 fi
 
 if [ -z $KEYPAIR_NAME ]; then
@@ -46,7 +51,7 @@ setup_workshop_config() {
   cd ../provision-scripts
 }
 
-create_aws_resources() {
+create_aws_monolith-vm() {
 
   echo "Create AWS resource: monolith-vm"
   aws cloudformation create-stack \
@@ -55,6 +60,9 @@ create_aws_resources() {
       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
         ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME
+}
+
+create_aws_services-vm() {
 
   echo "Create AWS resource: services-vm"
   aws cloudformation create-stack \
@@ -69,6 +77,8 @@ create_aws_resources() {
 echo "==================================================================="
 echo "About to Provision Workshop for:"
 echo "$DT_BASEURL"
+echo "SETUP_TYPE   = $SETUP_TYPE"
+echo "KEYPAIR_NAME = $KEYPAIR_NAME"
 echo "==================================================================="
 read -p "Proceed? (y/n) : " REPLY;
 if [ "$REPLY" != "y" ]; then exit 0; fi
@@ -78,9 +88,20 @@ echo "Provisioning workshop resources"
 echo "Starting   : $(date)"
 echo "=========================================="
 
-make_creds_file
-setup_workshop_config
-create_aws_resources
+case "$SETUP_TYPE" in
+    "monolith-vm") 
+        create_aws_monolith-vm
+        ;;
+    "services-vm") 
+        create_aws_services-vm
+        ;;
+    *)
+        make_creds_file
+        setup_workshop_config
+        create_aws_monolith-vm
+        create_aws_services-vm
+        ;;
+esac
 
 echo ""
 echo "============================================="
