@@ -3,6 +3,7 @@
 .logs
 todo.txt
 install.sh
+notes.txt
 
 # generated files
 gen/workshop-credentials.json*
