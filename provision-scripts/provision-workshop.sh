@@ -2,10 +2,13 @@
 
 DT_BASEURL=$1
 DT_API_TOKEN=$2
-SETUP_TYPE=$3     # optional argument. values are: all, monolith-vm, services-vm.  default is all
-                  # this allows to just recreate the cloudformation stack is one VM stack fails
-KEYPAIR_NAME=$4   # optional argument. if leave blank it will default to ee-default-keypair
-                  # this allows to override for testing outside of AWS event engine account
+DASHBOARD_OWNER_EMAIL=$3  # required is making monaco dashboards SETUP_TYPE=all.  
+                          # Otherwise optional or any "dummy" value if you need to pass
+                          # in SETUP_TYPE and KEYPAIR_NAME parameters
+SETUP_TYPE=$4             # optional argument. values are: all, monolith-vm, services-vm.  default is all
+                          # this allows to just recreate the cloudformation stack is one VM stack fails
+KEYPAIR_NAME=$5           # optional argument. if leave blank it will default to ee-default-keypair
+                          # this allows to override for testing outside of AWS event engine account
 
 if [ -z $DT_BASEURL ]; then
   echo "ABORT: missing DT_BASEURL parameter"
@@ -50,6 +53,7 @@ setup_workshop_config() {
   cd ../workshop-config
   ./setup-workshop-config.sh monolith-vm
   ./setup-workshop-config.sh services-vm
+  ./setup-workshop-config.sh dashboard $DASHBOARD_OWNER_EMAIL
   cd ../provision-scripts
 }
 
