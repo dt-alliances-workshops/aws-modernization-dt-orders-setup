@@ -1,0 +1,182 @@
+{
+    "dashboardMetadata": {
+        "name": "{{ .name }}",
+        "shared": true,
+        "owner": "{{ .owner }}",
+        "sharingDetails": {
+            "linkShared": true,
+            "published": true
+        }
+    },
+    "tiles": [{
+        "name": "Service-level objective",
+        "tileType": "SLO",
+        "configured": true,
+        "bounds": {
+            "top": 38,
+            "left": 988,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {
+            "timeframe": "-1d"
+        },
+        "assignedEntities": []
+    }, {
+        "name": "Service-level objective",
+        "tileType": "SLO",
+        "configured": true,
+        "bounds": {
+            "top": 380,
+            "left": 988,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {
+            "timeframe": "-1d"
+        },
+        "assignedEntities": []
+    }, {
+        "name": "Monolith",
+        "tileType": "HEADER",
+        "configured": true,
+        "bounds": {
+            "top": 0,
+            "left": 0,
+            "width": 1596,
+            "height": 38
+        },
+        "tileFilter": {}
+    }, {
+        "name": "Multi Service",
+        "tileType": "HEADER",
+        "configured": true,
+        "bounds": {
+            "top": 342,
+            "left": 0,
+            "width": 1596,
+            "height": 38
+        },
+        "tileFilter": {}
+    }, {
+        "name": "Markdown",
+        "tileType": "MARKDOWN",
+        "configured": true,
+        "bounds": {
+            "top": 38,
+            "left": 684,
+            "width": 304,
+            "height": 304
+        },
+        "tileFilter": {},
+        "markdown": "**Monolith Service Performance**\n\nThe Service tile shows the average Response Time and Failure Rate as well as the number of Requests per minute, which are three key performance indicators for monitoring service quality.\n\nThis is tracking the performance of your original monolithic application"
+    }, {
+        "name": "Markdown",
+        "tileType": "MARKDOWN",
+        "configured": true,
+        "bounds": {
+            "top": 380,
+            "left": 684,
+            "width": 304,
+            "height": 304
+        },
+        "tileFilter": {},
+        "markdown": "**Multi Service Performance**\n\nthe Service tile shows the average Response Time and Failure Rate as well as the number of Requests per minute, which are three key performance indicators for monitoring service quality.\n\nThis is tracking the performance of the target Multi Service application being migrated to."
+    }, {
+        "name": "Markdown",
+        "tileType": "MARKDOWN",
+        "configured": true,
+        "bounds": {
+            "top": 38,
+            "left": 1292,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {},
+        "markdown": "This is a **SLO** (Service Level Objective) or target measuring the server side errors being observed in the **monolithic** application."
+    }, {
+        "name": "Markdown",
+        "tileType": "MARKDOWN",
+        "configured": true,
+        "bounds": {
+            "top": 190,
+            "left": 1292,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {},
+        "markdown": "This is the performance of the database for the **monolithic** application.  It tracks database transactions, statements and performance."
+    }, {
+        "name": "Markdown",
+        "tileType": "MARKDOWN",
+        "configured": true,
+        "bounds": {
+            "top": 380,
+            "left": 1292,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {},
+        "markdown": "This is a **SLO** (Service Level Objective) or target measuring the server side errors being observed in the target application being migrated to.."
+    }, {
+        "name": "Markdown",
+        "tileType": "MARKDOWN",
+        "configured": true,
+        "bounds": {
+            "top": 532,
+            "left": 1292,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {},
+        "markdown": "This is the performance of the database for the Multi service application.  It tracks database transactions, statements and performance."
+    }, {
+        "name": "Service or request",
+        "tileType": "SERVICE_VERSATILE",
+        "configured": true,
+        "bounds": {
+            "top": 38,
+            "left": 0,
+            "width": 684,
+            "height": 304
+        },
+        "tileFilter": {},
+        "assignedEntities": []
+    }, {
+        "name": "Service or request",
+        "tileType": "SERVICE_VERSATILE",
+        "configured": true,
+        "bounds": {
+            "top": 380,
+            "left": 0,
+            "width": 684,
+            "height": 304
+        },
+        "tileFilter": {},
+        "assignedEntities": []
+    }, {
+        "name": "Database performance",
+        "tileType": "DATABASE",
+        "configured": true,
+        "bounds": {
+            "top": 190,
+            "left": 988,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {},
+        "assignedEntities": []
+    }, {
+        "name": "Database performance",
+        "tileType": "DATABASE",
+        "configured": true,
+        "bounds": {
+            "top": 532,
+            "left": 988,
+            "width": 304,
+            "height": 152
+        },
+        "tileFilter": {},
+        "assignedEntities": []
+    }]
+}
