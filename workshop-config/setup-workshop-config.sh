@@ -27,10 +27,20 @@ download_monaco() {
 
 run_monaco() {
     MONACO_PROJECT=$1
+    DASHBOARD_OWNER=$2
 
     if [ -z $MONACO_PROJECT ]; then
         echo "ERROR: run_monaco() Missing MONACO_PROJECT argument"
         exit 1
+    fi
+
+    if [ -z $DASHBOARD_OWNER ]; then
+        # need to do this so that the monaco valdiation does not fail
+        # even though you are not running the dashboard project, monaco
+        # still valdiates all the projects in the projects folders 
+        export OWNER=DUMMY_PLACEHOLDER
+    else
+        export OWNER=$DASHBOARD_OWNER_EMAIL
     fi
 
     echo "Running monaco for project = $MONACO_PROJECT"
@@ -90,8 +100,7 @@ case "$SETUP_TYPE" in
             exit 1
         else
             echo "Setup type = dashboard"
-            export OWNER=$DASHBOARD_OWNER_EMAIL
-            run_monaco db
+            run_monaco db $DASHBOARD_OWNER_EMAIL
         fi
         ;;
     "monolith-vm")
