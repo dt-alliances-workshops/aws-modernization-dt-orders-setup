@@ -1,0 +1,6 @@
+config:
+  - dashboard: "dashboard.json"
+
+dashboard:
+  - name: "Cloud Modernization Success"
+  - owner: "{{ .Env.OWNER }}"

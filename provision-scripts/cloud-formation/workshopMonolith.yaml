@@ -106,7 +106,7 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn: AttachGateway
     Properties:
-      InstanceType: m4.xlarge
+      InstanceType: m5.xlarge
       KeyName: !Ref 'KeyPairName'
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
       Tags:

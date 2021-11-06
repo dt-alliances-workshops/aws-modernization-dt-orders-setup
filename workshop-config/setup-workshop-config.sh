@@ -5,6 +5,8 @@ source ./_workshop-config.lib
 # optional argument.  If not based, then the base workshop is setup.
 # setup types are for additional features like kubernetes
 SETUP_TYPE=$1
+DASHBOARD_OWNER_EMAIL=$2    # This is required for the dashboard monaco project
+                            # Otherwise it is not required
 
 MONACO_PROJECT_BASE_PATH=./monaco-files/projects
 MONACO_ENVIONMENT_FILE=./monaco-files/environments.yaml
@@ -25,10 +27,20 @@ download_monaco() {
 
 run_monaco() {
     MONACO_PROJECT=$1
+    DASHBOARD_OWNER=$2
 
     if [ -z $MONACO_PROJECT ]; then
         echo "ERROR: run_monaco() Missing MONACO_PROJECT argument"
         exit 1
+    fi
+
+    if [ -z $DASHBOARD_OWNER ]; then
+        # need to do this so that the monaco valdiation does not fail
+        # even though you are not running the dashboard project, monaco
+        # still valdiates all the projects in the projects folders 
+        export OWNER=DUMMY_PLACEHOLDER
+    else
+        export OWNER=$DASHBOARD_OWNER_EMAIL
     fi
 
     echo "Running monaco for project = $MONACO_PROJECT"
@@ -80,6 +92,16 @@ case "$SETUP_TYPE" in
     "synthetics") 
         echo "Setup type = synthetics"
         run_monaco synthetics
+        ;;
+    "dashboard") 
+        if [ -z $DASHBOARD_OWNER_EMAIL ]; then
+            echo "ABORT dashboard owner email is required argument"
+            echo "syntax: ./setup-workshop-config.sh dashboard name@company.com"
+            exit 1
+        else
+            echo "Setup type = dashboard"
+            run_monaco db $DASHBOARD_OWNER_EMAIL
+        fi
         ;;
     "monolith-vm")
         echo "Setup type = monolith-vm"
