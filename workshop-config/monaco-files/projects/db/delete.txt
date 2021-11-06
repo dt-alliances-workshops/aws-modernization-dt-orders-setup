@@ -1,0 +1,2 @@
+delete:
+  - "dashboard/Cloud Modernization Success"

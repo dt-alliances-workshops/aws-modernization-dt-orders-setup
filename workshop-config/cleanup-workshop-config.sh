@@ -38,9 +38,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "*** Removing Dynatrace config ***"
     echo
 
+    # need to do this so that the monaco valdiation does not fail
+    # even though you are not running the dashboard project, monaco
+    # still valdiates all the projects in the projects folders 
+    export OWNER=DUMMY_PLACEHOLDER
     run_monaco_delete monolith-vm
     run_monaco_delete cluster
     run_monaco_delete services-vm
+    run_monaco_delete db
     #run_monaco_delete synthetics  # if add this, need to adjust token permission instructions
 
     reset_custom_dynatrace_config
