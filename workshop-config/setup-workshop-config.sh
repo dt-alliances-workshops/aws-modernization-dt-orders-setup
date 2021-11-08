@@ -118,7 +118,7 @@ case "$SETUP_TYPE" in
         echo ""
         echo "-----------------------------------------------------------------------------------"
         echo "ERROR: Missing or invalid SETUP_TYPE argument"
-        echo "Valid values are: monolith-vm, services-vm, cluster, synthetics"
+        echo "Valid values are: monolith-vm, services-vm, cluster, dashboard"
         echo ""
         exit 1
         ;;
