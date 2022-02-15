@@ -1,6 +1,6 @@
 # Overview
 
-The repo contains the setup and learner scripts to support [this AWS and Dynatrace workshop](http://aws-modernize-workshop.alliances.dynatracelabs.com/).
+The repo contains the setup and learner scripts to support the [AWS Dynatrace workshop](https://learn.alliances.dynatracelabs.com/).
 
 <img src="dt-aws.png" width="400"/> 
 
@@ -23,9 +23,9 @@ Please ensure we have all the necessary information to effectively respond to yo
 * The URL to the page, file or script with an issue
 * A reproducible test case or series of steps
 
-# Maintainer
+# Maintainers
 
-[Rob Jahn](https://www.linkedin.com/in/robjahn/) -- Email me @ rob.jahn@dynatrace.com with questions or more details.
+Email alliances@dynatrace.com with questions or for more details.
 
 # Tags
 
