@@ -15,6 +15,10 @@ Parameters:
   ResourcePrefix:
     Description: Optional value to prefix resource names
     Type: String
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: "m5.xlarge"
 Conditions:
   HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, '']]
 Mappings:
@@ -105,7 +109,7 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn: AttachGateway
     Properties:
-      InstanceType: m5.xlarge
+      InstanceType: !Ref 'InstanceType'
       KeyName: !Ref 'KeyPairName'
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
       Tags:

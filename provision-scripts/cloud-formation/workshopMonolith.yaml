@@ -16,6 +16,13 @@ Parameters:
     Description: Optional value to prefix resource names
     Type: String
     Default: ""
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: "m5.xlarge"
+  AvailabilityZone:
+    Description: Subnet AvailabilityZone
+    Type: String
 Mappings:
   RegionMap: 
     us-east-1: 
@@ -44,6 +51,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref 'VPC'
+      AvailabilityZone: !Ref 'AvailabilityZone'
       CidrBlock: 10.0.0.0/24
       MapPublicIpOnLaunch: true
       Tags:
@@ -106,7 +114,7 @@ Resources:
     Type: AWS::EC2::Instance
     DependsOn: AttachGateway
     Properties:
-      InstanceType: m5.xlarge
+      InstanceType: !Ref 'InstanceType'
       KeyName: !Ref 'KeyPairName'
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
       Tags:
