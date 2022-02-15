@@ -61,10 +61,7 @@ get_availability_zone() {
 
   MY_REGION=$(aws ec2 describe-availability-zones --output text --query 'AvailabilityZones[0].[RegionName]') 
   INSTANCE_TYPE=m5.xlarge
-  AVAILABILITY_ZONE=$(aws ec2 describe-instance-type-offerings \
-      --location-type "availability-zone" \
-      --filters Name=instance-type,Values=$INSTANCE_TYPE \
-      --output json) | jq -r '.InstanceTypeOfferings[0].Location')
+  AVAILABILITY_ZONE=$(aws ec2 describe-instance-type-offerings --location-type "availability-zone" --filters Name=instance-type,Values=$INSTANCE_TYPE | jq -r '.InstanceTypeOfferings[0].Location')
 
   if [ -z $AVAILABILITY_ZONE ]; then
     echo "ABORT: No $INSTANCE_TYPE available in $MY_REGION."
