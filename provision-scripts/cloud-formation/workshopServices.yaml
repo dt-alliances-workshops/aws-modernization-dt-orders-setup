@@ -19,6 +19,9 @@ Parameters:
     Description: EC2 instance type
     Type: String
     Default: "m5.xlarge"
+  AvailabilityZone:
+    Description: Subnet AvailabilityZone
+    Type: String
 Conditions:
   HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, '']]
 Mappings:
@@ -47,6 +50,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref 'VPC'
+      AvailabilityZone: !Ref 'AvailabilityZone'
       CidrBlock: 10.0.0.0/24
       MapPublicIpOnLaunch: true
       Tags:
