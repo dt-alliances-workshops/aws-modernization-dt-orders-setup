@@ -57,6 +57,20 @@ setup_workshop_config() {
   cd ../provision-scripts
 }
 
+get_availability_zone() {
+
+  MY_REGION=$(aws ec2 describe-availability-zones --output text --query 'AvailabilityZones[0].[RegionName]') 
+  INSTANCE_TYPE=m5.xlarge
+  AVAILABILITY_ZONE=$(aws ec2 describe-instance-type-offerings --location-type "availability-zone" --filters Name=instance-type,Values=$INSTANCE_TYPE | jq -r '.InstanceTypeOfferings[0].Location')
+
+  if [ -z $AVAILABILITY_ZONE ]; then
+    echo "ABORT: No $INSTANCE_TYPE available in $MY_REGION."
+    exit 1
+  else
+    echo "Found $INSTANCE_TYPE available in $MY_REGION. Using AVAILABILITY_ZONE $AVAILABILITY_ZONE" 
+  fi
+}
+
 create_aws_monolith-vm() {
 
   echo "Create AWS resource: monolith-vm"
@@ -65,7 +79,8 @@ create_aws_monolith-vm() {
       --template-body file://cloud-formation/workshopMonolith.yaml \
       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
-        ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME
+        ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME \
+        ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
 }
 
 create_aws_services-vm() {
@@ -77,7 +92,8 @@ create_aws_services-vm() {
       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
         ParameterKey=ResourcePrefix,ParameterValue="" \
-        ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME
+        ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME \
+        ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
 }
 
 echo "==================================================================="
@@ -94,6 +110,7 @@ echo "Provisioning workshop resources"
 echo "Starting   : $(date)"
 echo "=========================================="
 
+get_availability_zone
 case "$SETUP_TYPE" in
     "monolith-vm") 
         create_aws_monolith-vm
