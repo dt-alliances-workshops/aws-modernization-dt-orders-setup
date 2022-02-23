@@ -7,7 +7,8 @@ This folder contains a script for a learner to provision the workshop
 The `cloud-formation` folder has two CloudFormation scripts that each provision a VPC with a EC2 instance that installs the OneAgent and sample application at startup. The AMI images for EC2 are based on this instance:  
 
 ```
-Ubuntu Server 20.04 LTS (HVM), SSD Volume Type x86
+# Community AMI
+Canonical, Ubuntu, 20.04 LTS, amd64 focal image build on 2021-04-30
 ```
 
 A RegionMap within the CloudFormation scripts have several regions and each region has a unique AMI. If your region is not in the map, then pick a new region of adjust the script with the AMI in your region. 
