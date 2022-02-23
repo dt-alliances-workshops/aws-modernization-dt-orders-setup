@@ -38,6 +38,16 @@ Mappings:
       AMI: ami-0d058fe428540cd89
     ap-southeast-2:
       AMI: ami-0567f647e75c7bc05
+    eu-west-1:
+      AMI: ami-0a8e758f5e873d1c1
+    eu-west-2:
+      AMI: ami-0194c3e07668a7e36
+    eu-west-3:
+      AMI: ami-0f7cd40eac2214b37
+    eu-north-1:
+      AMI: ami-0ff338189efb7ed37
+    eu-central-1:
+      AMI: ami-05f7491af5eef733a
 Resources:
   VPC:
     Type: AWS::EC2::VPC
