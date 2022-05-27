@@ -10,7 +10,7 @@ create_dynakube()
   # create new file from the template with learner Dynatrace tenant information
   rm -f $DYNAKUBE_GEN_FILE
 
-  DT_API_TOKEN_ENCODED=$(echo -n $DT_API_TOKEN | base64)
+  DT_API_TOKEN_ENCODED=$(echo -n $DT_API_TOKEN | base64 -w 0)
   cat $DYNAKUBE_TEMPLATE_FILE | \
     sed 's~DT_API_TOKEN_PLACEHOLDER~'"$DT_API_TOKEN_ENCODED"'~' | \
     sed 's~DT_BASEURL_PLACEHOLDER~'"$DT_BASEURL"'~' | \
