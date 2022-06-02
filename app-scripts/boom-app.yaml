@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boom-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boom-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: boom-app
+    spec:
+      containers:
+      - env:
+        image: dtdemos/boom-app:0.1.0
+        imagePullPolicy: "Always"
+        name: boom-app
+        resources: {}
+      restartPolicy: Always
+status: {}

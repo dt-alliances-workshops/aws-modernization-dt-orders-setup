@@ -53,6 +53,7 @@ setup_workshop_config() {
   cd ../workshop-config
   ./setup-workshop-config.sh monolith-vm
   ./setup-workshop-config.sh services-vm
+  ./setup-workshop-config.sh cluster
   ./setup-workshop-config.sh dashboard $DASHBOARD_OWNER_EMAIL
   cd ../provision-scripts
 }
@@ -108,11 +109,12 @@ echo ""
 echo "=========================================="
 echo "Provisioning workshop resources"
 echo "Starting   : $(date)"
+echo "Setup type : $SETUP_TYPE"
 echo "=========================================="
 
 get_availability_zone
 case "$SETUP_TYPE" in
-    "monolith-vm") 
+    "monolith-vm")
         create_aws_monolith-vm
         ;;
     "services-vm") 
@@ -120,9 +122,10 @@ case "$SETUP_TYPE" in
         ;;
     *)
         make_creds_file
-        setup_workshop_config
         create_aws_monolith-vm
         create_aws_services-vm
+        ./makedynakube.sh
+        setup_workshop_config
         ;;
 esac
 

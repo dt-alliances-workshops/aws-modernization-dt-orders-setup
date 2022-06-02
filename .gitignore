@@ -13,6 +13,7 @@ gen/*.json
 gen/*.txt
 gen/*.bak
 gen/*.pem
+gen/*.yaml
 
 # generated files
 gen/workshop-credentials.json*
