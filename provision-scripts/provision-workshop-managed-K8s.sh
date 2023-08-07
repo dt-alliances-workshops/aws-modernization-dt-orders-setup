@@ -92,18 +92,18 @@ create_aws_monolith-vm() {
         ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
 }
 
-# create_aws_services-vm() {
+create_aws_services-vm() {
 
-#   echo "Create AWS resource: services-vm"
-#   aws cloudformation create-stack \
-#       --stack-name "services-vm-$(date +%s)" \
-#       --template-body file://cloud-formation/workshopServices.yaml \
-#       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
-#         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
-#         ParameterKey=ResourcePrefix,ParameterValue="" \
-#         ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME \
-#         ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
-# }
+  echo "Create AWS resource: services-vm"
+  aws cloudformation create-stack \
+      --stack-name "services-vm-$(date +%s)" \
+      --template-body file://cloud-formation/workshopServices.yaml \
+      --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
+        ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
+        ParameterKey=ResourcePrefix,ParameterValue="" \
+        ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME \
+        ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
+}
 
 create_aws_activegate_role-vm() {
 
@@ -176,13 +176,13 @@ case "$SETUP_TYPE" in
     "monolith-vm")
         create_aws_monolith-vm
         ;;
-    # "services-vm") 
-    #     create_aws_services-vm
-    #     ;;
+    "services-vm") 
+        create_aws_services-vm
+        ;;
     *)
         make_creds_file
         create_aws_monolith-vm
-        # create_aws_services-vm
+        create_aws_services-vm
         
         get_aws_acct_id
         get_dt_external_id

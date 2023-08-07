@@ -72,14 +72,6 @@ get_availability_zone() {
   fi
 }
 
-get_aws_acct_id(){
-    AWS_ACCT_ID=$(aws sts get-caller-identity --query "Account" --output text)
-}
-
-get_dt_external_id(){
-	DT_EXT_ID=$(curl -s --request GET --url $DT_BASEURL/api/config/v1/aws/iamExternalId --header "Authorization: Api-Token $DT_API_TOKEN" | jq --raw-output '.token')
-}
-
 create_aws_monolith-vm() {
 
   echo "Create AWS resource: monolith-vm"
@@ -92,68 +84,17 @@ create_aws_monolith-vm() {
         ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
 }
 
-# create_aws_services-vm() {
+create_aws_services-vm() {
 
-#   echo "Create AWS resource: services-vm"
-#   aws cloudformation create-stack \
-#       --stack-name "services-vm-$(date +%s)" \
-#       --template-body file://cloud-formation/workshopServices.yaml \
-#       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
-#         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
-#         ParameterKey=ResourcePrefix,ParameterValue="" \
-#         ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME \
-#         ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
-# }
-
-create_aws_activegate_role-vm() {
-
-  echo "Create AWS resource: activegate-vm"
+  echo "Create AWS resource: services-vm"
   aws cloudformation create-stack \
-      --capabilities CAPABILITY_NAMED_IAM \
-      --stack-name "activegate-vm-$(date +%s)" \
-      --template-body file://cloud-formation/workshopActiveGate-createrole.yaml \
+      --stack-name "services-vm-$(date +%s)" \
+      --template-body file://cloud-formation/workshopServices.yaml \
       --parameters ParameterKey=DynatraceBaseURL,ParameterValue=$DT_BASEURL \
         ParameterKey=DynatracePaasToken,ParameterValue=$DT_API_TOKEN \
         ParameterKey=ResourcePrefix,ParameterValue="" \
         ParameterKey=KeyPairName,ParameterValue=$KEYPAIR_NAME \
-        ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE \
-        ParameterKey=ActiveGateRoleName,ParameterValue=Dynatrace_ActiveGate_role \
-        ParameterKey=AssumePolicyName,ParameterValue=Dynatrace_assume_policy \
-        ParameterKey=MonitoringRoleName,ParameterValue=Dynatrace_monitoring_role \
-        ParameterKey=MonitoredAccountID,ParameterValue=$AWS_ACCT_ID
-}
-
-create_aws_role_based_access_monitoredaccount() {
-
-    aws cloudformation create-stack \
-      --capabilities CAPABILITY_NAMED_IAM \
-      --stack-name "rolebased-ag-monitoredaccount-$(date +%s)" \
-      --template-body file://cloud-formation/role_based_access_monitored_account_template.yml \
-      --parameters ParameterKey=ExternalID,ParameterValue=$DT_EXT_ID \
-        ParameterKey=ActiveGateRoleName,ParameterValue=Dynatrace_ActiveGate_role \
-        ParameterKey=ActiveGateAccountID,ParameterValue=$AWS_ACCT_ID \
-        ParameterKey=RoleName,ParameterValue=Dynatrace_monitoring_role \
-        ParameterKey=PolicyName,ParameterValue=Dynatrace_monitoring_policy
-}
-
-create_dt_aws(){
-    curl -X POST \
-    $DT_BASEURL/api/config/v1/aws/credentials \
-    -H "accept: application/json; charset=utf-8" \
-    -H "Authorization: Api-Token $DT_API_TOKEN" \
-    -H "Content-Type: application/json; charset=utf-8" \
-    -d "{
-      \"label\": \"ImmersionDay Workshop\",
-      \"partitionType\": \"AWS_DEFAULT\",
-      \"authenticationData\": {
-        \"type\": \"ROLE\",
-        \"roleBasedAuthentication\": {
-          \"iamRole\": \"Dynatrace_monitoring_role\",
-          \"accountId\": \"$AWS_ACCT_ID\"
-        }
-      },
-      \"taggedOnly\": false
-    }"
+        ParameterKey=AvailabilityZone,ParameterValue=$AVAILABILITY_ZONE
 }
 
 echo "==================================================================="
@@ -176,22 +117,13 @@ case "$SETUP_TYPE" in
     "monolith-vm")
         create_aws_monolith-vm
         ;;
-    # "services-vm") 
-    #     create_aws_services-vm
-    #     ;;
+    "services-vm") 
+        create_aws_services-vm
+        ;;
     *)
         make_creds_file
         create_aws_monolith-vm
-        # create_aws_services-vm
-        
-        get_aws_acct_id
-        get_dt_external_id
-        
-        create_aws_activegate_role-vm
-		sleep 180
-        create_aws_role_based_access_monitoredaccount
-        create_dt_aws
-        
+        create_aws_services-vm
         ./makedynakube.sh
         setup_workshop_config
         ;;
@@ -203,33 +135,3 @@ echo "Provisioning workshop resources COMPLETE"
 echo "End: $(date)"
 echo "============================================="
 echo ""
-
-create_EKS_Workshop_Cluster_w_utilities() {
-
-# Function to check if a command is installed
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
-}
-
-# Install kubectl
-if ! command_exists kubectl; then
-  echo "Installing kubectl..."
-  curl -LO "https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-  chmod +x kubectl
-  sudo mv kubectl /usr/local/bin/
-fi
-
-# Install eksctl
-if ! command_exists eksctl; then
-  echo "Installing eksctl..."
-  sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | sudo tar xz -C /usr/local/bin
-fi
-
-# Deploy Kubernetes cluster
-echo "Deploying Kubernetes cluster..."
-eksctl create cluster --with-oidc --ssh-access --version=1.26 --managed --name workshop-SH-test --tags "Purpose=dynatrace-modernization-workshop" --ssh-public-key ee-default-keypair
-
-echo "Kubernetes cluster deployment complete!"
-}
-
-create_EKS_Workshop_Cluster_w_utilities
