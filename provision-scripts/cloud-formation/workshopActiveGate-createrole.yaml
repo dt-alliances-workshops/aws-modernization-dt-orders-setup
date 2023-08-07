@@ -1,0 +1,221 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation Template for the AWS Modernization workshop with Dynatrace.
+  You will be billed for the AWS resources used if you create a stack from this template.
+Parameters:
+  DynatraceBaseURL:
+    Description: Your Dynatrace Base URL (example https://ABC.live.dynatrace.com)
+    Type: String
+  DynatracePaasToken:
+    Description: Your Dynatrace PaaS token
+    Type: String
+  KeyPairName:
+    Description: KeyPair name for the EC2 instance
+    Type: String
+    Default: ee-default-keypair
+  ResourcePrefix:
+    Description: Optional value to prefix resource names
+    Type: String
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: "m5.xlarge"
+  AvailabilityZone:
+    Description: Subnet AvailabilityZone
+    Type: String
+  ActiveGateRoleName:
+    Type: String
+    Description: IAM role name for the account hosting the ActiveGate for
+      monitoring. This must be the same name as the ActiveGateRoleName parameter 
+      used in the template for the monitored account.
+    Default: Dynatrace_ActiveGate_role
+  AssumePolicyName:
+    Type: String
+    Description: IAM policy name attached to the role for the account hosting the
+      ActiveGate
+    Default: Dynatrace_assume_policy
+  MonitoringRoleName:
+    Type: String
+    Description: IAM role name that Dynatrace should use to get monitoring data. This
+      must be the same name as the RoleName parameter used in the template for the 
+      monitored account.
+    Default: Dynatrace_monitoring_role
+  MonitoredAccountID:
+    Type: String
+    Description: ID of the account that Dynatrace should monitor
+Conditions:
+  HasResourcePrefix: !Not [!Equals [!Ref ResourcePrefix, '']]
+Mappings:
+  RegionMap: 
+    us-east-1: 
+      AMI: ami-09e67e426f25ce0d7
+    us-east-2: 
+      AMI: ami-00399ec92321828f5
+    us-west-1:
+      AMI: ami-0d382e80be7ffdae5
+    us-west-2: 
+      AMI: ami-03d5c68bab01f3496
+    ap-southeast-1:
+      AMI: ami-0d058fe428540cd89
+    ap-southeast-2:
+      AMI: ami-0567f647e75c7bc05
+    eu-west-1:
+      AMI: ami-0a8e758f5e873d1c1
+    eu-west-2:
+      AMI: ami-0194c3e07668a7e36
+    eu-west-3:
+      AMI: ami-0f7cd40eac2214b37
+    eu-north-1:
+      AMI: ami-0ff338189efb7ed37
+    eu-central-1:
+      AMI: ami-05f7491af5eef733a
+Resources:
+  DynatraceAssumePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Ref 'AssumePolicyName'
+      Description: Dynatrace Assume Policy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Resource:
+              - !Sub 'arn:aws:iam::${MonitoredAccountID}:role/${MonitoringRoleName}'
+            Action:
+              - sts:AssumeRole
+            Effect: Allow
+  DynatraceActiveGateRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref 'ActiveGateRoleName'
+      Description: Dynatrace ActiveGate Role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Ref 'DynatraceAssumePolicy'
+  DynatraceActiveGateInstanceProfile: 
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      InstanceProfileName: !Ref 'ActiveGateRoleName'
+      Roles: 
+        - Ref: 'DynatraceActiveGateRole'
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-activegate", activegate]
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'VPC'
+      AvailabilityZone: !Ref 'AvailabilityZone'
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-activegate", activegate]
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-activegate", activegate]
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref 'VPC'
+      InternetGatewayId: !Ref 'InternetGateway'
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'VPC'
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-activegate", activegate]
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  Route:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref 'RouteTable'
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'InternetGateway'
+  SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'Subnet'
+      RouteTableId: !Ref 'RouteTable'
+  DTOrdersInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access
+      VpcId: !Ref 'VPC'
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'
+  DTOrdersInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: AttachGateway
+    Properties:
+      InstanceType: !Ref 'InstanceType'
+      KeyName: !Ref 'KeyPairName'
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+      IamInstanceProfile: !Ref DynatraceActiveGateInstanceProfile
+      Tags:
+        - Key: Name
+          Value: !If [HasResourcePrefix, !Sub "${ResourcePrefix}-activegate", activegate]
+        - Key: Purpose
+          Value: dynatrace-modernize-workshop
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: '20'
+            DeleteOnTermination: 'true'
+            Encrypted: 'false'
+      UserData: !Base64
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash\n"
+            - "wget -O Dynatrace-ActiveGate-Linux.sh \""
+            - !Ref DynatraceBaseURL
+            - "/api/v1/deployment/installer/gateway/unix/latest?arch=x86\" --header=\"Authorization: Api-Token "
+            - !Ref DynatracePaasToken  
+            - "\"\n"
+            - "/bin/bash Dynatrace-ActiveGate-Linux.sh\n"
+      NetworkInterfaces:
+        - GroupSet:
+            - !Ref 'DTOrdersInstanceSecurityGroup'
+          AssociatePublicIpAddress: 'true'
+          DeviceIndex: '0'
+          DeleteOnTermination: 'true'
+          SubnetId: !Ref 'Subnet'
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value: !Ref 'DTOrdersInstance'
+  ActiveGateRoleName:
+    Description: IAM role name for the account hosting the ActiveGate
+    Value: !Ref 'ActiveGateRoleName'
+  ActiveGateAccountID:
+    Description: Your Amazon account ID hosting the ActiveGate
+    Value: !Ref 'AWS::AccountId'
+  MonitoringRoleName:
+    Description: IAM role that Dynatrace should use to get monitoring data
+    Value: !Ref 'MonitoringRoleName'
+  MonitoredAccountID:
+    Description: ID of the account that Dynatrace should monitor
+    Value: !Ref 'MonitoredAccountID'
