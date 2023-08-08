@@ -227,7 +227,7 @@ fi
 
 # Deploy Kubernetes cluster
 echo "Deploying Kubernetes cluster..."
-eksctl create cluster --with-oidc --ssh-access --version=1.26 --managed --name workshop-SH-test --tags "Purpose=dynatrace-modernization-workshop" --ssh-public-key ee-default-keypair
+eksctl create cluster --with-oidc --ssh-access --version=1.26 --managed --name dynatrace-workshop --tags "Purpose=dynatrace-modernization-workshop" --ssh-public-key ee-default-keypair
 
 echo "Kubernetes cluster deployment complete!"
 }
