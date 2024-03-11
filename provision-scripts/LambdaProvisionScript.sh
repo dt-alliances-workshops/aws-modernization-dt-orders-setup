@@ -116,7 +116,7 @@ createLambdafindByNameContains()
     aws lambda create-function \
         --function-name findByNameContains \
         --runtime python3.9 \
-        --zip-file fileb://findByNameContains.zip \
+        --zip-file fileb://findByName.zip \
         --handler lambda_function.lambda_handler \
         --role "${createRoleLambda}" \
         --environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME},AWS_LAMBDA_EXEC_WRAPPER=${AWS_LAMBDA_EXEC_WRAPPER},DT_TENANT=${DT_TENANT},DT_CLUSTER_ID=${DT_CLUSTER_ID},DT_CONNECTION_BASE_URL=${DT_CONNECTION_BASE_URL},DT_CONNECTION_AUTH_TOKEN="REPLACE-ME-PLEASE",DT_OPEN_TELEMETRY_ENABLE_INTEGRATION=${DT_OPEN_TELEMETRY_ENABLE_INTEGRATION}}" \
@@ -141,12 +141,12 @@ createLambdafindByNameContains()
 }
 
 
-createLambdaserverlessDBActionsURL()
+createLambdaserverlessDBActions()
 {
     # deploy findByNameContains lambda function
     #--environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME}}" \
     aws lambda create-function \
-        --function-name serverlessDBActionsURL \
+        --function-name serverlessDBActions \
         --runtime python3.9 \
         --zip-file fileb://serverlessDBActions.zip \
         --handler lambda_function.lambda_handler \
@@ -158,14 +158,14 @@ createLambdaserverlessDBActionsURL()
  # Wait a few seconds to ensure the Lambda function has been created before creating the Function URL
  sleep 5
     aws lambda add-permission \
-        --function-name serverlessDBActionsURL \
+        --function-name serverlessDBActions \
         --action lambda:InvokeFunctionUrl \
         --principal "*" \
         --function-url-auth-type "NONE" \
         --statement-id url
 
     aws lambda create-function-url-config \
-        --function-name serverlessDBActionsURL \
+        --function-name serverlessDBActions \
         --auth-type NONE
 
     echo "Function URL for $FUNCTION_NAME created with public access."
