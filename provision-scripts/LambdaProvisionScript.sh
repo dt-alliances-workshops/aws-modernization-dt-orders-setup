@@ -187,5 +187,5 @@ updateCatalogManifest()
 createDB
 createEV
 createLambdafindByNameContains
-createLambdaserverlessDBActionsURL
+createLambdaserverlessDBActions
 updateCatalogManifest
