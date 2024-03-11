@@ -14,9 +14,11 @@ kind: DynaKube
 metadata:
   name: CLUSTER_NAME_PLACEHOLDER
   namespace: dynatrace
+  annotations:
+    feature.dynatrace.com/automatic-kubernetes-api-monitoring: "true"
 spec:
   # Dynatrace apiUrl including the `/api` path at the end.
-  # For SaaS, set `ENVIRONMENTID` to your environment ID.
+  # For SaaS, set `YOUR_ENVIRONMENT_ID` to your environment ID.
   # For Managed, change the apiUrl address.
   # For instructions on how to determine the environment ID and how to configure the apiUrl address, see https://www.dynatrace.com/support/help/reference/dynatrace-concepts/environment-id/.
   apiUrl: DT_BASEURL_PLACEHOLDER/api
@@ -26,7 +28,7 @@ spec:
   #
   # tokens: ""
 
-  # Optional: Defines a custom pull secret in case you use a private registry when pulling images from the Dynatrace environment
+  # Optional: Defines a custom pull secret in case you use a private registry when pulling images from the dynatrace environment
   # The secret has to be of type 'kubernetes.io/dockerconfigjson' (see https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
   #
   # customPullSecret: "custom-pull-secret"
@@ -52,7 +54,7 @@ spec:
   # Make sure networkZones are enabled on your cluster before (see https://www.dynatrace.com/support/help/setup-and-configuration/network-zones/network-zones-basic-info/)
   #
   # networkZone: name-of-my-network-zone
-  
+  networkZone: kubernetes
 
   # Optional: If enabled, and if Istio is installed on the Kubernetes environment, the
   # Operator will create the corresponding VirtualService and ServiceEntry objects to allow access
@@ -68,7 +70,7 @@ spec:
     #
     classicFullStack:
       # Optional: If specified, indicates the OneAgent version to use
-      # Defaults to the configured version on your Dynatrace environment
+      # Defaults to "latest"
       # The version is expected to be provided in the semver format
       # Example: {major.minor.release}, e.g., "1.200.0"
       #
@@ -77,7 +79,7 @@ spec:
       # Optional: Sets the URI for the image containing the OneAgent installer used by the DaemonSet
       # Defaults to the latest OneAgent image on the tenant's registry
       #
-      image: ""
+      image:
 
       # Optional: Sets a node selector to control on which nodes the OneAgent will be deployed.
       # For more information on node selectors, see https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/
@@ -149,6 +151,9 @@ spec:
       #
       # args: []
       
+      args:
+        - --set-host-group=kubernetes
+      
 
   # Configuration for ActiveGate instances.
   #
@@ -211,10 +216,10 @@ spec:
     #
     # env: []
 
-    # Recommended: Sets the activation group for ActiveGate instances
+    # Optional: Sets the activation group for ActiveGate instances
     #
     # group: ""
-    
+    group: kubernetes
 
 
     # Optional: Defines a custom properties file, the file contents can be provided either as a value in this yaml or as a reference to a secret.
