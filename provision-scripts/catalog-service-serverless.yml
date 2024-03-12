@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dt-orders
+      app.kubernetes.io/name: catalog-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "catalog-service"
+        app.kubernetes.io/version: "2"
+        app.kubernetes.io/component: "service"
+        app.kubernetes.io/part-of: "dt-orders"
+        app.kubernetes.io/managed-by: "helm"
+        app.kubernetes.io/created-by: "dynatrace-demos"
+      annotations:
+        owner: Team Services
+        chat-channel: dev-team-services 
+
+    spec:
+      containers:
+      - name: catalog
+        image: dtdemos/dt-orders-catalog-service:1.1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: catalog
+        env:
+        - name: DT_CUSTOM_PROP
+          value: "project=dt-orders service=catalog-service"
+        - name: SERVERLESS_DB_ACTIONS_URL
+          value: "CHANGEME_SERVERLESS_DB_ACTIONS"
+        - name: FIND_BY_NAME_URL
+          value: "CHANGEME_FINDBYNAME"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog
+  namespace: staging   
+  labels:
+    app.kubernetes.io/part-of: dt-orders
+    app.kubernetes.io/name: catalog-service
+    deploy-date: "ImmersionDayDeployDate"
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: catalog
+  selector:
+    app.kubernetes.io/part-of: dt-orders
+    app.kubernetes.io/name: catalog-service
+  type: ClusterIP
