@@ -215,7 +215,7 @@ command_exists() {
 if ! command_exists helm; then
   echo "Installing Helm..."
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-	chmod +x get_helm.sh
+  chmod +x get_helm.sh
   ./get_helm.sh
 fi
 
