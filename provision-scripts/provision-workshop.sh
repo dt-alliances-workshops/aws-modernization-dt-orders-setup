@@ -211,6 +211,14 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
+# Install Helm
+if ! command_exists helm; then
+  echo "Installing Helm..."
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+	chmod +x get_helm.sh
+  ./get_helm.sh
+fi
+
 # Install kubectl
 if ! command_exists kubectl; then
   echo "Installing kubectl..."
