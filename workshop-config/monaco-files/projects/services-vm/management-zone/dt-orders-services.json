@@ -19,7 +19,7 @@
             "value": {
               "context": "CONTEXTLESS",
               "key": "stage",
-              "value":"dev"
+              "value":"staging"
             },
             "negate": false
           }

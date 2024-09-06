@@ -25,7 +25,7 @@ if [ -z $SETUP_TYPE ]; then
 fi
 
 if [ -z $KEYPAIR_NAME ]; then
-  KEYPAIR_NAME=ee-default-keypair
+  KEYPAIR_NAME=ws-default-keypair
 fi
 
 make_creds_file() {
@@ -235,7 +235,7 @@ fi
 
 # Deploy Kubernetes cluster
 echo "Deploying Kubernetes cluster..."
-eksctl create cluster --with-oidc --ssh-access --version=1.26 --managed --name dynatrace-workshop --tags "Purpose=dynatrace-modernization-workshop" --ssh-public-key ee-default-keypair
+eksctl create cluster --with-oidc --ssh-access --version=1.29 --managed --name dynatrace-workshop --tags "Purpose=dynatrace-modernization-workshop" --ssh-public-key ws-default-keypair
 
 echo "Kubernetes cluster deployment complete!"
 }
