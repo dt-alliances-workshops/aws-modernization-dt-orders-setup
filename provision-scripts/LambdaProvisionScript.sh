@@ -100,11 +100,12 @@ echo "UUID: $DT_UUID"
     #Dynatrace EnvVars
     export AWS_LAMBDA_EXEC_WRAPPER="/opt/dynatrace"
     export DT_TENANT="$DT_UUID"
-    export DT_CLUSTER_ID="1649838510"
-    export DT_CONNECTION_BASE_URL="https://syh360.dynatrace-managed.com"
+    export DT_CLUSTER_ID="xxxxxxxx"
+    export DT_CONNECTION_BASE_URL="https://abcxxxxx.live.dynatrace.com"
     export DT_CONNECTION_AUTH_TOKEN="$DT_API_TOKEN"
     export DT_OPEN_TELEMETRY_ENABLE_INTEGRATION="true"
-    export Layer_ARN=arn:aws:lambda:us-west-2:725887861453:layer:Dynatrace_OneAgent_1_279_2_20231020-042318_python:1
+    export Layer_ARN=arn:aws:lambda:us-east-2:725887861453:layer:Dynatrace_OneAgent_1_299_3_20240813-131707_python:1
+#    export Layer_ARN=arn:aws:lambda:us-west-2:725887861453:layer:Dynatrace_OneAgent_1_279_2_20231020-042318_python:1
 #    export Layer_ARN="arn:aws:lambda:us-west-2:725887861453:layer:Dynatrace_OneAgent_1_277_3_20231004-104443_python:1"
 }   
 
@@ -119,7 +120,7 @@ createLambdafindByNameContains()
         --zip-file fileb://findByName.zip \
         --handler lambda_function.lambda_handler \
         --role "${createRoleLambda}" \
-        --environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME},AWS_LAMBDA_EXEC_WRAPPER=${AWS_LAMBDA_EXEC_WRAPPER},DT_TENANT=${DT_TENANT},DT_CLUSTER_ID=${DT_CLUSTER_ID},DT_CONNECTION_BASE_URL=${DT_CONNECTION_BASE_URL},DT_CONNECTION_AUTH_TOKEN="REPLACE-ME-PLEASE",DT_OPEN_TELEMETRY_ENABLE_INTEGRATION=${DT_OPEN_TELEMETRY_ENABLE_INTEGRATION}}" \
+        --environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME},AWS_LAMBDA_EXEC_WRAPPER=${AWS_LAMBDA_EXEC_WRAPPER},DT_TENANT="REPLACE-ME-PLEASE-hgdxxxxx",DT_CLUSTER_ID="REPLACE-ME-PLEASE",DT_CONNECTION_BASE_URL="REPLACE-ME-PLEASE-https://hgdxxxxx.live.dynatrace.com",DT_CONNECTION_AUTH_TOKEN="REPLACE-ME-PLEASE",DT_OPEN_TELEMETRY_ENABLE_INTEGRATION=${DT_OPEN_TELEMETRY_ENABLE_INTEGRATION}}" \
         --layers "${Layer_ARN}" \
         --no-paginate \
         --output json
@@ -151,7 +152,8 @@ createLambdaserverlessDBActions()
         --zip-file fileb://serverlessDBActions.zip \
         --handler lambda_function.lambda_handler \
         --role "${createRoleLambda}" \
-        --environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME},AWS_LAMBDA_EXEC_WRAPPER=${AWS_LAMBDA_EXEC_WRAPPER},DT_TENANT=${DT_TENANT},DT_CLUSTER_ID=${DT_CLUSTER_ID},DT_CONNECTION_BASE_URL=${DT_CONNECTION_BASE_URL},DT_CONNECTION_AUTH_TOKEN="REPLACE-ME-PLEASE",DT_OPEN_TELEMETRY_ENABLE_INTEGRATION=${DT_OPEN_TELEMETRY_ENABLE_INTEGRATION}}" \
+        --environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME},AWS_LAMBDA_EXEC_WRAPPER=${AWS_LAMBDA_EXEC_WRAPPER},DT_TENANT="REPLACE-ME-PLEASE-hgdxxxxx",DT_CLUSTER_ID="REPLACE-ME-PLEASE",DT_CONNECTION_BASE_URL="REPLACE-ME-PLEASE-https://hgdxxxxx.live.dynatrace.com",DT_CONNECTION_AUTH_TOKEN="REPLACE-ME-PLEASE",DT_OPEN_TELEMETRY_ENABLE_INTEGRATION=${DT_OPEN_TELEMETRY_ENABLE_INTEGRATION}}" \
+#       --environment "Variables={DB_NAME=${DB_NAME},PASSWORD=${PASSWORD},RDS_HOST=${RDS_HOST},USER_NAME=${USER_NAME},AWS_LAMBDA_EXEC_WRAPPER=${AWS_LAMBDA_EXEC_WRAPPER},DT_TENANT=${DT_TENANT},DT_CLUSTER_ID=${DT_CLUSTER_ID},DT_CONNECTION_BASE_URL=${DT_CONNECTION_BASE_URL},DT_CONNECTION_AUTH_TOKEN="REPLACE-ME-PLEASE",DT_OPEN_TELEMETRY_ENABLE_INTEGRATION=${DT_OPEN_TELEMETRY_ENABLE_INTEGRATION}}" \
         --layers "${Layer_ARN}" \
         --no-paginate \
         --output json
